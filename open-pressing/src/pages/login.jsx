@@ -24,19 +24,19 @@ export default function SignInSide() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const logindata({
+    const logindata=({
       email: data.get('email'),
       password: data.get('password'),
     });
   };
-  const checkLogin = ()=>{
+  const CheckLogin = ()=>{
 
     useEffect( ()=>{
         fetch("http://localhost:3001")
         .then((logindata)=>data.json())
         .then((data)=>setTableData(data))
     },[])
-
+  }
   return (
     <ThemeProvider theme={theme}>
       <Grid container component="main" sx={{ height: '100vh' }}>
@@ -123,4 +123,4 @@ export default function SignInSide() {
       </Grid>
     </ThemeProvider>
   );
-}
+  }

@@ -1,0 +1,9 @@
+{
+   "nom":"choufack",
+   "prenom":"aminata",
+   "date_de_naissance":"19/11/2004",
+   "numero_telephone":"699615365",
+   "adresse_email":"insert.test@home.cool",
+   "mot_de_passe":"undeuxiememotdepasse",
+   "photo_profil":"base64aajouter"
+}
