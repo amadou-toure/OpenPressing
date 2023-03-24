@@ -13,31 +13,29 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Copyright from '@/components/Copyright';
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
 const theme = createTheme();
+
+
 
 export default function SignInSide() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+    const logindata({
       email: data.get('email'),
       password: data.get('password'),
     });
   };
+  const checkLogin = ()=>{
+
+    useEffect( ()=>{
+        fetch("http://localhost:3001")
+        .then((logindata)=>data.json())
+        .then((data)=>setTableData(data))
+    },[])
 
   return (
     <ThemeProvider theme={theme}>
@@ -49,7 +47,7 @@ export default function SignInSide() {
           sm={4}
           md={7}
           sx={{
-            backgroundImage: 'url(https://source.unsplash.com/random)',
+            backgroundImage: 'url(https://www.expresspressing.fr/wp-content/uploads/2020/04/linge-poid.jpg)',
             backgroundRepeat: 'no-repeat',
             backgroundColor: (t) =>
               t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
@@ -113,7 +111,7 @@ export default function SignInSide() {
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="#" variant="body2">
+                  <Link href="signUp" variant="body2">
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>
