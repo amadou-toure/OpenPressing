@@ -14,6 +14,9 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Copyright from '@/components/Copyright';
+import { redirect } from 'next/navigation';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
 
 
 const theme = createTheme();
@@ -21,21 +24,30 @@ const theme = createTheme();
 
 
 export default function SignInSide() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const router = useRouter();
+  const [token,setToken]=useState(null);
+  const config = {
+    method: 'GET',
+    headers: {
+        'Authorization': token,
+    }
+    };
+  const CheckLogin = (event)=>{
+     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const logindata=({
-      email: data.get('email'),
-      password: data.get('password'),
+      adresse_email: data.get('email'),
+      mot_de_passe: data.get('password'),
     });
-  };
-  const CheckLogin = ()=>{
-
-    useEffect( ()=>{
-        fetch("http://localhost:3001")
-        .then((logindata)=>data.json())
-        .then((data)=>setTableData(data))
-    },[])
+    fetch("http://localhost:3001/clients/login",{
+      method:'POST',
+      headers:{
+        'content-Type':'application/json'
+      },
+      body:JSON.stringify(logindata)
+    })
+      .then(response=> response ?  console.log(response.body): console.log('echec de connexion'))
+      .catch(error=>console.log(error))
   }
   return (
     <ThemeProvider theme={theme}>
@@ -56,6 +68,7 @@ export default function SignInSide() {
           }}
         />
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+          
           <Box
             sx={{
               my: 8,
@@ -66,12 +79,12 @@ export default function SignInSide() {
             }}
           >
             <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-              <LockOutlinedIcon />
+              <img  src="https://upcdn.io/W142hJk/image/demo/4mZFNstdCR.png?w=600&h=600&fit=max&q=70" />
             </Avatar>
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+            <Box component="form"  onSubmit={CheckLogin} sx={{ mt: 1 }}>
               <TextField
                 margin="normal"
                 required

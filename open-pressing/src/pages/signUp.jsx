@@ -13,24 +13,48 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Copyright from '@/components/Copyright';
+import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
+import { useState } from 'react';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import  ImageUploader from '../components/ImageUploader'
+
 
 
 
 const theme = createTheme();
 
 export default function SignUp() {
+  const [birthdate, setbirthdate] = useState(null)
+  const [pp,setPp] = useState('nothing yet')
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    const newClient=({
+      nom:data.get('lastName'),
+      prenom:data.get('firstName'),
+      date_de_naissance:birthdate,
+      numero_telephone:data.get('phoneNumber'),
+      adresse_email:data.get('email'),
+      mot_de_passe:data.get('password'),
+      photo_profil:pp,
+    })
+    console.log(newClient);
+    fetch("http://localhost:3001/clients/",{
+      method:'POST',
+      headers:{
+        'content-Type':'application/json'
+      },
+      body:JSON.stringify(newClient)
+    })
+    // .then(res=> res.status===200? console.log(res.json()) : console.log('echec de connexion'))
+      .then(data =>console.log(data))
+      .catch(error=>console.log(error))
+    
   };
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="xs" sx={{bgcolor:'white'}}>
         <CssBaseline />
         <Box
           sx={{
@@ -55,7 +79,7 @@ export default function SignUp() {
                   required
                   fullWidth
                   id="firstName"
-                  label="First Name"
+                  label="Prenom"
                   autoFocus
                 />
               </Grid>
@@ -64,11 +88,32 @@ export default function SignUp() {
                   required
                   fullWidth
                   id="lastName"
-                  label="Last Name"
+                  label="Nom"
                   name="lastName"
                   autoComplete="family-name"
                 />
               </Grid>
+              <Grid item xs={12} sm={6}>
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <DatePicker
+                    required
+                    label="Date de naissance" 
+                    id="birthdate"
+                    name="birthdate" 
+                    value={birthdate}
+                    onChange={(newValue) => setbirthdate(newValue)}
+                  /> 
+                </LocalizationProvider>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                    required
+                    fullWidth
+                    id="phoneNumber"
+                    label="Numero de telephone"
+                    name="phoneNumber"
+                  />
+                </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
@@ -84,11 +129,14 @@ export default function SignUp() {
                   required
                   fullWidth
                   name="password"
-                  label="Password"
+                  label="Mot de passe"
                   type="password"
                   id="password"
                   autoComplete="new-password"
                 />
+              </Grid>
+              <Grid item xs={12}>
+                <ImageUploader photo={pp} setPhoto={setPp}/>
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
