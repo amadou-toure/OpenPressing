@@ -17,19 +17,23 @@ import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import { useState } from 'react';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import  ImageUploader from '../components/ImageUploader'
+import RadioGroup from '@mui/material/RadioGroup';
+import {Radio} from '@mui/material'
 
 
 
-
-const theme = createTheme();
 
 export default function SignUp() {
+  const [user,setUser] = useState('Client')
   const [birthdate, setbirthdate] = useState(null)
   const [pp,setPp] = useState('nothing yet')
+  const handleUserStatus = (event) => {
+    setUser(event.target.value);
+  };
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const newClient=({
+    const newUser=({
       nom:data.get('lastName'),
       prenom:data.get('firstName'),
       date_de_naissance:birthdate,
@@ -38,23 +42,34 @@ export default function SignUp() {
       mot_de_passe:data.get('password'),
       photo_profil:pp,
     })
-    console.log(newClient);
-    fetch("http://localhost:3001/clients/",{
-      method:'POST',
-      headers:{
-        'content-Type':'application/json'
-      },
-      body:JSON.stringify(newClient)
-    })
-    // .then(res=> res.status===200? console.log(res.json()) : console.log('echec de connexion'))
-      .then(data =>console.log(data))
-      .catch(error=>console.log(error))
-    
+    console.log(newUser);
+    user === 'Client' ?
+      fetch("http://localhost:3001/clients/",{
+        method:'POST',
+        headers:{
+          'content-Type':'application/json'
+        },
+        body:JSON.stringify(newClient)
+      })
+      // .then(res=> res.status===200? console.log(res.json()) : console.log('echec de connexion'))
+        .then(data =>console.log(data))
+        .catch(error=>console.log(error))
+    :
+    fetch("http://localhost:3001/owners/",{
+        method:'POST',
+        headers:{
+          'content-Type':'application/json'
+        },
+        body:JSON.stringify(newUser)
+      })
+      // .then(res=> res.status===200? console.log(res.json()) : console.log('echec de connexion'))
+        .then(data =>console.log(data))
+        .catch(error=>console.log(error))
   };
 
   return (
-    <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs" sx={{bgcolor:'white'}}>
+        {console.log(user)}
         <CssBaseline />
         <Box
           sx={{
@@ -72,6 +87,23 @@ export default function SignUp() {
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <Typography component='body2' variant='h6'> Vous etes :</Typography>
+                <RadioGroup
+                  aria-labelledby="demo-controlled-radio-buttons-group"
+                  name="controlled-radio-buttons-group"
+                  value={user}
+                  onChange={handleUserStatus}
+                  sx={{
+                    display:'flex',
+                    flexDirection: 'column',
+                    marginLeft: '5%'
+                  }}
+                >
+                  <FormControlLabel value="Client" control={<Radio />} label="Client" />
+                  <FormControlLabel value="Owner" control={<Radio />} label="Proprietaire de pressing" />
+                </RadioGroup>
+              </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="given-name"
@@ -164,6 +196,5 @@ export default function SignUp() {
         </Box>
         <Copyright sx={{ mt: 5 }} />
       </Container>
-    </ThemeProvider>
   );
 }

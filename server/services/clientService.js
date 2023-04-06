@@ -4,7 +4,6 @@ const pool = require('../database');
 const jwt = require('jsonwebtoken');
 
 const getclients= (req,res)=>{
-    console.log(req.headers)
     pool.query(queries.findClients,(error,results)=>{
         if (error){
             console.log(error)
@@ -15,11 +14,12 @@ const getclients= (req,res)=>{
 }
 
 const getOneClient = (req,res)=>{
-    pool.query(queries.findOneClient,[req.body.id],(error,results)=>{
+    pool.query(queries.findOneClient,[req.params.id],(error,results)=>{
         if (error){
             console.log(error)
         }else{
             res.json(results.rows)
+            console.log(results.rows)
         }
     })
 }

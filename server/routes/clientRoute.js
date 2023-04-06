@@ -8,6 +8,6 @@ route.post('/login',clientService.logInClient);
 route.get('/',auth,clientService.getclients);
 route.post('/',clientService.signUpClient);
 route.delete('/:id',clientService.deleteClient);
-route.post('/:id',clientService.getOneClient)
+route.get('/:id',auth,clientService.getOneClient)
 
 module.exports = route

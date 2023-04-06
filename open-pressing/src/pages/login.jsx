@@ -41,7 +41,7 @@ export default function SignInSide() {
     })
       .then(response=> response ? response.json(): console.log('echec de connexion'))
       .then( (result) => {setToken(result)})
-      .then( token? document.cookie = token.token:console.log('aucun token'))
+      .then( token? document.cookie = token.token + ' @ ' + token.userId:console.log('aucun token'))
       .catch(error=>console.log(error))
       console.log(document.cookie)
        if(token) {router.push('./ClientIndex')}

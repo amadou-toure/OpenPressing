@@ -93,36 +93,16 @@ const [anchorElUser, setAnchorElUser] = useState(null);
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
+          <Box marginLeft={3}
+                marginBottom={2}
+                marginTop={2} >
+            <Avatar sx={{
+               width: 56, height: 56
+            }} src={props.profile}/>
+          </Box>
+          
         </Toolbar>
-        {/* <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src={props.Photo} />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box> */}
+      
       </AppBar>
     </Box>
   );
