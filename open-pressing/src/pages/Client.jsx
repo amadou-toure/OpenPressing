@@ -11,7 +11,7 @@ const Client = ()=>{
         const id = idArray[1]
         const token = idArray[0]
         console.log(id,token)
-        const url = "http://localhost:3001/clients/"+id
+        const url = "http://localhost:3100/clients/"+id
         const config = {
         method: 'GET',
         headers: {
@@ -20,8 +20,8 @@ const Client = ()=>{
         };
         useEffect(()=> {
             fetch(url,config)
-            .then(response=> response ? console.log(response.json()):console.log('erreur'))
-            .then (result => handleResult(result))
+            .then(response=> response ? response.json():console.log('erreur'))
+            .then (result => handleResult(result[0]))
             }, [])
             console.log(data)
     
@@ -30,7 +30,7 @@ const Client = ()=>{
    
     return(
         <>
-            <NavBar />
+            <NavBar isLoggedIn={true} profile={data.photo_profil} />
         </>
     )
 

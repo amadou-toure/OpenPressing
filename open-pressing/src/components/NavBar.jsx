@@ -93,7 +93,7 @@ const [anchorElUser, setAnchorElUser] = useState(null);
             {props.isLoggedIn? 
             <Avatar sx={{
                width: 56, height: 56
-            }} src={props.profil}/>
+            }} src={props.profile}/>
             :
             < >
               <Button variant="contained" href='./signUp' >S'inscrire</Button>
