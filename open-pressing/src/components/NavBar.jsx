@@ -9,7 +9,8 @@ import InputBase from '@mui/material/InputBase';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import { useState } from 'react';
-import { Tooltip,Avatar,Menu,MenuItem} from '@mui/material';
+import { Tooltip,Avatar,Menu,MenuItem,Button} from '@mui/material';
+import Link from 'next/link';
 
 
 const handleCloseUserMenu = () => {
@@ -67,15 +68,6 @@ const [anchorElUser, setAnchorElUser] = useState(null);
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
           <Typography
             variant="h6"
             noWrap
@@ -84,7 +76,8 @@ const [anchorElUser, setAnchorElUser] = useState(null);
           >
             MUI
           </Typography>
-          <Search>
+          {props.isLoggedIn
+          ?<Search>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
@@ -92,13 +85,28 @@ const [anchorElUser, setAnchorElUser] = useState(null);
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
             />
-          </Search>
+          </Search>:null}
+          
           <Box marginLeft={3}
                 marginBottom={2}
                 marginTop={2} >
+            {props.isLoggedIn? 
             <Avatar sx={{
                width: 56, height: 56
-            }} src={props.profile}/>
+            }} src={props.profil}/>
+            :
+            < >
+              <Button variant="contained" href='./signUp' >S'inscrire</Button>
+              <Button marginLeft={3}  sx={{ color:'white',
+                              boxSizing:'border-box',
+                              borderWidth:'1px',
+                              borderColor:'white',
+              }} variant="outlined" href='./login'>Se connecter</Button>
+            </>
+           
+            
+          }
+           
           </Box>
           
         </Toolbar>

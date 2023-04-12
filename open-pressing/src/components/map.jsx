@@ -17,7 +17,7 @@ function MyComponent() {
     googleMapsApiKey: "YOUR_API_KEY"
   })
 
-  const [map, setMap] = React.useState(null)
+  const [map, setMap] = useState(null)
 
   const onLoad = React.useCallback(function callback(map) {
     // This is just an example of getting and using the map instance!!! don't just blindly copy!

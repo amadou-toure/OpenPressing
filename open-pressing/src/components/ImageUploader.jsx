@@ -16,8 +16,8 @@ const MyApp = ({photo,setPhoto}) => {
         <UploadDropzone uploader={uploader}
         options={options}
         onUpdate={files => setPhoto(files.map(x => x.fileUrl).join("\n")) }
-        width="600px"
-        height="375px" />
+        width="530px"
+        height="300px" />
         <div>{photo}</div>
         </>
   

@@ -14,17 +14,16 @@ const getclients= (req,res)=>{
 }
 
 const getOneClient = (req,res)=>{
+    console.log(req.params.id)
     pool.query(queries.findOneClient,[req.params.id],(error,results)=>{
-        if (error){
-            console.log(error)
-        }else{
-            res.json(results.rows)
-            console.log(results.rows)
-        }
+        if (error) throw error
+        res.json(results.rows)
+        console.log(results.rows)
     })
 }
 
 const signUpClient = (req,res)=>{
+
    bCrypt.hash(req.body.mot_de_passe,10,(error,hash)=>{
         pool.query(queries.saveClient,[req.body.nom,req.body.prenom,req.body.date_de_naissance,req.body.numero_telephone,req.body.adresse_email,hash,req.body.photo_profil],(error,results)=>{
             if (error) throw error
