@@ -1,21 +1,20 @@
 import NavBar from '../components/NavBar'
 import { useState,useEffect } from 'react'
+import cookie from './api/cookieSplitter'
 const Client = ()=>{
     const [data,setData] = useState()
     const handleResult=(result)=>{
         setData(result)
         
     }
-   
-        const idArray = document.cookie.split(' @ ')
-        const id = idArray[1]
-        const token = idArray[0]
-        console.log(id,token)
-        const url = "http://localhost:3100/clients/"+id
+    if(typeof window !== 'undefined')
+    {
+        console.log(localStorage.getItem('token'))
+        const url = "http://localhost:3001/clients/"+localStorage.getItem('userId')
         const config = {
         method: 'GET',
         headers: {
-            'Authorization':token
+            'Authorization':localStorage.getItem('token')
         }
         };
         useEffect(()=> {
@@ -24,13 +23,16 @@ const Client = ()=>{
             .then (result => handleResult(result[0]))
             }, [])
             console.log(data)
+    }
+    
+       
     
    
 
    
     return(
         <>
-            <NavBar isLoggedIn={true} profile={data.photo_profil} />
+            <NavBar isLoggedIn={true} />
         </>
     )
 
