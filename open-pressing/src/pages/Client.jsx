@@ -21,7 +21,7 @@ const Client = ()=>{
         useEffect(()=> {
             fetch(url,config)
             .then(response=> response ? response.json():console.log('erreur'))
-            .then (result => handleResult(result[0]))
+            .then (result => handleResult(result))
             }, [])
             console.log(data)
     
