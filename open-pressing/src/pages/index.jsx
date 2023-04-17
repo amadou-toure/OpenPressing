@@ -26,8 +26,7 @@ export default function Home(props) {
         <NavBar />
       <Toolbar />
       <Container>
-      <main className={styles.main}>
-      </main>
+      
       </Container>
     </>
   );

@@ -11,6 +11,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { useState } from 'react';
 import { Tooltip,Avatar,Menu,MenuItem,Button} from '@mui/material';
 import Link from 'next/link';
+import Style from '../styles/NavBar.module.css'
 
 
 const handleCloseUserMenu = () => {

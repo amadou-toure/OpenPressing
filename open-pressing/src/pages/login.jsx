@@ -43,19 +43,26 @@ export default function SignInSide() {
       mot_de_passe: data.get('password'),
     });
     if (user==='Client'){
-     auth("http://localhost:3001/clients/login",logindata)
+     auth("http://localhost:3100/clients/login",logindata)
      if(typeof window !== 'undefined')
       {
-        router.push('./Client')
+        if (localStorage.getItem('token'))
+        {
+          router.push('./Client')
+        }
       }
       
     }
     else if (user==='Owner')
     {
-      auth("http://localhost:3001/owners/login",logindata)
+      auth("http://localhost:3100/owners/login",logindata)
       if(typeof window !== 'undefined')
       {
-        router.push('./OwnerAdmin')
+        if (localStorage.getItem('token'))
+        {
+          router.push('./OwnerAdmin')
+        }
+       
       }
     
     }

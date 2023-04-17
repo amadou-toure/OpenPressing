@@ -34,13 +34,13 @@ export default function MediaCard(props) {
         display:'flex',
         alignItems:'center'
        }} marginTop={3} marginLeft={2}>
-        <Rating name='read-only' value={3.5} readOnly precision={0.5} size='small' />
+        <Rating name='read-only' value={props.note} readOnly precision={0.5} size='small' />
         <Typography variant="body2" component="p" marginLeft={0.5}>3.5</Typography>
-        <Typography variant="body3" component="p" marginLeft={1.5} sx={{backgroundColor:'grey',fontSize:11}}>(655 avis)</Typography>
+        <Typography variant="body3" component="p" marginLeft={1.5} sx={{backgroundColor:'grey',fontSize:11}}>({props.nomber_avis})</Typography>
        </Box>
        <Box marginLeft={2}
        marginBottom={1}>
-        <Typography variant="h6" component="h6" marginTop={0}>A partir de 500 FCFA/Kg</Typography>
+        <Typography variant="h6" component="h6" marginTop={0}>A partir de {props.tarification}</Typography>
        </Box>
       </Paper>
     </Grid>

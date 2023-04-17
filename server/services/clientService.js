@@ -14,11 +14,20 @@ const getclients= (req,res)=>{
 }
 
 const getOneClient = (req,res)=>{
-    console.log(req.headers.authorization.token)
     pool.query(queries.findOneClient,[req.params.id],(error,results)=>{
-        if (error) throw error
-        res.json(results.rows)
-        console.log(results.rows)
+            try{
+                if(error){
+                    // res.json({type:'From Postgresql, clientService',erreur:error})
+                    console.log(error)
+                }else{res.json(results.rows)
+            console.log(results.rows)}
+            
+            }catch(error){
+                console.log(error)
+            }
+        
+        
+        
     })
 }
 

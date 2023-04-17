@@ -6,7 +6,6 @@ export default function auth(authUrl,logindata){
     {
       localStorage.setItem('token',result.token)
       localStorage.setItem('userId', result.userId)
-      resultat=true
     }
   }
  
@@ -18,7 +17,7 @@ export default function auth(authUrl,logindata){
     body:JSON.stringify(logindata)
   })
     .then(response=> response ? response.json(): console.log('echec de connexion'))
-    .then( (result) => handleToken(result,resultat) )
+    .then( (result) => handleToken(result) )
     .catch(error=>console.log(error))
     console.log(localStorage.getItem('token'))
 }
