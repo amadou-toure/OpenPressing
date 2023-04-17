@@ -14,7 +14,7 @@ const getclients= (req,res)=>{
 }
 
 const getOneClient = (req,res)=>{
-    console.log(req.params.id)
+    console.log(req.headers.authorization.token)
     pool.query(queries.findOneClient,[req.params.id],(error,results)=>{
         if (error) throw error
         res.json(results.rows)
@@ -33,6 +33,7 @@ const signUpClient = (req,res)=>{
 }
 
 const logInClient = (req,res)=>{
+    console.log(req.body)
     pool.query(queries.logIn,[req.body.adresse_email],(error,results)=>{
         if (!results.rows) {
             return res.status(401).json({ message: 'Paire login/mot de passe incorrecte'});

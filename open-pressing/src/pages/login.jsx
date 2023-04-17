@@ -13,9 +13,14 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Copyright from '@/components/Copyright';
-import { redirect } from 'next/navigation';
+import { redirect } from 'next/navigation'; 
 import { useRouter } from 'next/router';
+import RadioGroup from '@mui/material/RadioGroup';
+import {Radio} from '@mui/material';
+import Auth from './api/Authentification';
+
 import { useState } from 'react';
+import auth from './api/Authentification';
 
 
 const theme = createTheme();
@@ -24,7 +29,12 @@ const theme = createTheme();
 
 export default function SignInSide() {
   const router = useRouter();
-  const [token,setToken]=useState();
+  const [user,setUser] = useState('Client')
+
+  const handleUserStatus = (event) => {
+    setUser(event.target.value);
+  };
+  console.log(user)
   const CheckLogin = (event)=>{
      event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -32,19 +42,24 @@ export default function SignInSide() {
       adresse_email: data.get('email'),
       mot_de_passe: data.get('password'),
     });
-    fetch("http://localhost:3001/clients/login",{
-      method:'POST',
-      headers:{
-        'content-Type':'application/json'
-      },
-      body:JSON.stringify(logindata)
-    })
-      .then(response=> response ? response.json(): console.log('echec de connexion'))
-      .then( (result) => {setToken(result)})
-      .then( token? document.cookie = token.token + ' @ ' + token.userId:console.log('aucun token'))
-      .catch(error=>console.log(error))
-      console.log(document.cookie)
-       if(token) {router.push('./Client')}
+    if (user==='Client'){
+     auth("http://localhost:3001/clients/login",logindata)
+     if(typeof window !== 'undefined')
+      {
+        router.push('./Client')
+      }
+      
+    }
+    else if (user==='Owner')
+    {
+      auth("http://localhost:3001/owners/login",logindata)
+      if(typeof window !== 'undefined')
+      {
+        router.push('./OwnerAdmin')
+      }
+    
+    }
+    else{console.log('user does not exist')}
     
       
      
@@ -84,6 +99,22 @@ export default function SignInSide() {
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
+            <Grid item xs={12}>
+                <Typography component='body2' variant='h6'> Vous etes :</Typography>
+                <RadioGroup
+                  aria-labelledby="demo-controlled-radio-buttons-group"
+                  name="controlled-radio-buttons-group"
+                  value={user}
+                  onChange={handleUserStatus}
+                  sx={{
+                    display:'flex',
+                    flexDirection: 'row',
+                  }}
+                >
+                  <FormControlLabel value="Client" control={<Radio />} label="Client" />
+                  <FormControlLabel value="Owner" control={<Radio />} label="Proprietaire de pressing" />
+                </RadioGroup>
+              </Grid>
             <Box component="form"  onSubmit={CheckLogin} sx={{ mt: 1 }}>
               <TextField
                 margin="normal"
