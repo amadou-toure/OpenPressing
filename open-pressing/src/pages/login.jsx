@@ -49,6 +49,8 @@ export default function SignInSide() {
         if (localStorage.getItem('token'))
         {
           router.push('./Client')
+        }else{
+          console.log('token non definis')
         }
       }
       

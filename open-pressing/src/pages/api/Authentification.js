@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState,useEffect } from "react"
 
 export default function auth(authUrl,logindata){
   const handleToken=(result)=>{
@@ -6,10 +6,11 @@ export default function auth(authUrl,logindata){
     {
       localStorage.setItem('token',result.token)
       localStorage.setItem('userId', result.userId)
+      console.log(localStorage.getItem('userId'))
     }
   }
- 
-  fetch(authUrl,{
+  
+    fetch(authUrl,{
     method:'POST',
     headers:{
       'content-Type':'application/json'
@@ -18,6 +19,7 @@ export default function auth(authUrl,logindata){
   })
     .then(response=> response ? response.json(): console.log('echec de connexion'))
     .then( (result) => handleToken(result) )
-    .catch(error=>console.log(error))
+    .catch(error=> console.log(error))
     console.log(localStorage.getItem('token'))
+
 }

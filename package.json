@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "feather-icons-react": "^0.6.2",
+    "props-type": "^1.0.1"
+  },
+  "scripts": {
+    "ServerStart":"node server/app.js",
+    "ClientStart":"cd open-pressing && npm run dev",
+    "start": "npm run ClientStart && node server/app.js && cd open-pressing",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
+

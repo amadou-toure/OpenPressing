@@ -44,7 +44,7 @@ export default function MediaCard(props) {
        </Box>
       </Paper>
     </Grid>
-   
+  //  pressing card props are : tarification,pressingImage,pressingLocation,pressingName,nomber_avis
     // <Card sx={{ maxWidth: 345 }}>
     //   <CardMedia
     //     sx={{ height: 140 }}
