@@ -22,7 +22,7 @@ export default function App(props) {
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <FullLayout>
+        <FullLayout runningPage = {props.router.route}>
           <Component {...pageProps} />
         </FullLayout>
       </ThemeProvider>

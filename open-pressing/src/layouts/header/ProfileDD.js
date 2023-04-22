@@ -14,7 +14,7 @@ import {
   Button,
   Divider,
 } from "@mui/material";
-const ProfileDD = () => {
+const ProfileDD = (props) => {
   const [anchorEl4, setAnchorEl4] = React.useState(null);
 
   const handleClick4 = (event) => {

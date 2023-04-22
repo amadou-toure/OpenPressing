@@ -30,10 +30,15 @@ const PageWrapper = experimentalStyled("div")(({ theme }) => ({
   },
 }));
 
-const FullLayout = ({ children }) => {
-  const [isSidebarOpen, setSidebarOpen] = React.useState(true);
+const FullLayout = (props ,{ children }) => {
+  const [isSidebarOpen, setSidebarOpen] = React.useState(false);
   const [isMobileSidebarOpen, setMobileSidebarOpen] = React.useState(false);
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"));
+  if(props.runningPage==='/admin'){
+    console.log('admin')
+  }else{
+    console.log('non admin')
+  }
   return (
     <MainWrapper>
       <Header

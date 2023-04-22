@@ -26,7 +26,6 @@ export default function Home(props) {
         <NavBar />
       <Toolbar />
       <Container>
-      
       </Container>
     </>
   );
