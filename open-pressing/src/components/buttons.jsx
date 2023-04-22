@@ -10,14 +10,14 @@ import {
 import BaseCard from "./baseCard/BaseCard";
 import FeatherIcon from "feather-icons-react";
 
-const Buttons = (value,props) => {
+const Buttons = (value) => {
   return (
     <Grid container spacing={0}>
       {/* ------------------------- row 1 ------------------------- */}
       <Grid item xs={12} lg={6}>
         <BaseCard title="Color Buttons">
           <Stack spacing={2} direction="row">
-            <Button variant="contained" color="primary" onClick={props.onClick}>
+            <Button variant="contained" color="primary">
               {value}
             </Button>
             {/* <Button variant="contained" color="error">

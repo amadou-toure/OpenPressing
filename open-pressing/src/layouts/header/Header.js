@@ -32,7 +32,7 @@ const Header = ({ sx, customClass, toggleMobileSidebar, position }) => {
 
         <Box flexGrow={1} />
 
-        <ProfileDD userName = 'le Client' profileimage="C:\Users\LENOVO\OpenPressing\open-pressing\public\favicon.ico"/>
+        <ProfileDD />
         {/* ------------------------------------------- */}
         {/* Profile Dropdown */}
         {/* ------------------------------------------- */}
