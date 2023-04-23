@@ -2,18 +2,28 @@ import Forms from '../../components/forms'
 import Tables from '@/components/table';
 import NavBar from '../../components/NavBar'
 import BaseCard from "../../components/baseCard/BaseCard";
-import { useState } from 'react';
-import Button from '@/components/buttons';
+import { useEffect, useState } from 'react';
+import { Button } from '@mui/material';
 
 export default function pressing(){
     const [openForm,setOpenForm] = useState(false)
+    const [buttonValue,setButtonValue]=useState('Ajouter un pressing')
     const handleClick=()=>{
-        openForm?setOpenForm(false):setOpenForm(true)
+        if(openForm){
+            setOpenForm(false)
+            setButtonValue('Ajouter un pressing')
+        }else{
+            setOpenForm(true)
+            setButtonValue('Fermer le formulaire')
+        }
+          
     }
     return(
         <>
-            <Button value='Ajouter un Pressing' onClick={handleClick()}/>
-            {openForm?<><Tables /><Forms /></>: <Tables />}
+            <Button variant="contained" color="primary" onClick={handleClick}>
+              {buttonValue}
+            </Button>
+            {openForm?<><Forms /></>: <Tables />}
             
         </>
     )
