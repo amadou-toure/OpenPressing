@@ -62,7 +62,7 @@ export default function SignInSide() {
       {
         if (localStorage.getItem('token'))
         {
-          router.push('./OwnerAdmin')
+          router.push('./admin')
         }
        
       }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   experimentalStyled,
   useMediaQuery,
@@ -30,10 +30,13 @@ const PageWrapper = experimentalStyled("div")(({ theme }) => ({
   },
 }));
 
-const FullLayout = ({ children }) => {
-  const [isSidebarOpen, setSidebarOpen] = React.useState(true);
+const FullLayout = (props) => {
+  const [isSidebarOpen, setSidebarOpen] = React.useState(false);
   const [isMobileSidebarOpen, setMobileSidebarOpen] = React.useState(false);
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"));
+  useEffect(()=>{
+    props.route==='/admin'?setSidebarOpen(true):setSidebarOpen(false)
+  })
   return (
     <MainWrapper>
       <Header
@@ -43,6 +46,7 @@ const FullLayout = ({ children }) => {
         }}
         toggleMobileSidebar={() => setMobileSidebarOpen(true)}
       />
+      
       <Sidebar
         isSidebarOpen={isSidebarOpen}
         isMobileSidebarOpen={isMobileSidebarOpen}
@@ -56,7 +60,7 @@ const FullLayout = ({ children }) => {
             paddingLeft: isSidebarOpen && lgUp ? "280px!important" : "",
           }}
         >
-          <Box sx={{ minHeight: "calc(100vh - 170px)" }}>{children}</Box>
+          <Box sx={{ minHeight: "calc(100vh - 170px)" }}>{props.children}</Box>
           <Footer />
         </Container>
       </PageWrapper>
