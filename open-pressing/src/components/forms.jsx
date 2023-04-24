@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import BaseCard from "./baseCard/BaseCard";
 
-const Forms = () => {
+const Forms = (props) => {
   return (
     <Grid container spacing={0}>
       <Grid item xs={12} lg={12}>

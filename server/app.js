@@ -5,7 +5,7 @@ const ownerRoutes = require('./routes/ownerRoute');
 const pressingRoutes = require('./routes/pressingRoute');
 const path = "C:/Users/LENOVO/OpenPressing/server"
 const app = express();
-const PORT = 3100;
+const PORT = 3001;
 
 
 app.use(cors())

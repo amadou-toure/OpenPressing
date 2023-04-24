@@ -1,4 +1,5 @@
-import Forms from '../../components/forms'
+import Forms from '../../components/pressingForm'
+import EnseigneForm from '../../components/enseigneForm';
 import Tables from '@/components/table';
 import NavBar from '../../components/NavBar'
 import BaseCard from "../../components/baseCard/BaseCard";
@@ -12,6 +13,7 @@ export default function pressing(){
         if(openForm){
             setOpenForm(false)
             setButtonValue('Ajouter un pressing')
+            
         }else{
             setOpenForm(true)
             setButtonValue('Fermer le formulaire')

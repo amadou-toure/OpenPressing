@@ -5,6 +5,11 @@ const Menuitems = [
     href: "/admin/",
   },
   {
+    title: "Enseigne",
+    icon: "disc",
+    href: "/admin/enseigneSave",
+  },
+  {
     title: "Gestion des pressing",
     icon: "disc",
     href: "/admin/pressing",
@@ -19,26 +24,7 @@ const Menuitems = [
     icon: "info",
     href: "/alerts",
   },
-  {
-    title: "Ratings",
-    icon: "star",
-    href: "/rating",
-  },
-  {
-    title: "Images",
-    icon: "image",
-    href: "/image",
-  },
-  {
-    title: "Pagination",
-    icon: "user",
-    href: "/pagination",
-  },
-  {
-    title: "Tables",
-    icon: "grid",
-    href: "/table",
-  },
+ 
 ];
 
 export default Menuitems;

@@ -19,9 +19,38 @@ const getOnePressing = (req,res)=>{
 }
 
 const createPressing=(req,res)=>{
-    console.log('nothing for the moment')
+    pool.query(queries.createPressing,[req.body.id_enseigne,req.body.localisation,req.body.contact],(error,results)=>{ 
+         if (error){
+        res.json(error).status(400)
+        console.log(error)
+
+    }else{
+        res.status(201)
+
+    }
+    })
+   
+}
+const createEnseigne=(req,res)=>{
+    pool.query(queries.createEnseigne,[req.body.id_proprietaire,req.body.nom_enseigne,req.body.logo],(error,results)=>{
+         if (error){
+        res.json(error).status(400)
+        console.log(error)
+
+    }else{
+        res.status(201)
+
+    }
+    })
+   
+}
+const getEnseigne=(req,res)=>{
+    pool.query(queries.getEnseigne,[req.params.id],(error,results)=>{
+        if (error) throw error
+        res.json(results.rows)
+    })
 }
 
 module.exports={
-    getOnePressing,getPressings
+    getOnePressing,getPressings,createPressing,createEnseigne,getEnseigne
 }
