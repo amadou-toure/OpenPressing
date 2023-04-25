@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 
-export default function getEnseigne()
+export default function ()
 {
-  const[enseigne,setEnseigne] = useState(['il','ya','rien'])
+  const[enseigne,setEnseigne] = useState({})
   const handleResult = (result) =>
   {
     setEnseigne(result)
@@ -25,10 +25,6 @@ export default function getEnseigne()
     .then( (result) => handleResult(result))
     .catch(error=>console.log(error))
     }, [])
-  
-        
-
-   
   }
   return enseigne
 }

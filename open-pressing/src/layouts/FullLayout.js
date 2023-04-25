@@ -35,6 +35,7 @@ const FullLayout = (props) => {
   const [isMobileSidebarOpen, setMobileSidebarOpen] = React.useState(false);
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"));
   useEffect(()=>{
+    
     props.route==='/admin'?setSidebarOpen(true):setSidebarOpen(false)
   })
   return (
