@@ -8,16 +8,20 @@ import { Container} from '@mui/system'
 import { Grid } from '@mui/material'
 import Pressing from '../api/PressingApi'
 import Style from '../../styles/Client.module.css'
+import BlogCard from '@/components/dashboard/BlogCard'
 const  Client = ()=>{
     const [data,setData] = useState()
     const [pressings,setPressings] = useState([])
+
+    Pressing(setPressings)
+    console.log(pressings)
     const handleResult=(result)=>{
         setData(result)
         
     }
     if(typeof window !== 'undefined')
     {
-        const url = "http://localhost:3100/clients/"+localStorage.getItem('userId')
+        const url = "http://localhost:3001/clients/"+localStorage.getItem('userId')
         const config = 
         {
             method: 'GET',
@@ -33,7 +37,7 @@ const  Client = ()=>{
             fetch(url,config)
             .then(response => response? response.status===(401) ? Router.push('./login') : response.json():console.log('erreur'))
             .then (result => handleResult(result[0]))
-        },)
+        },[])
         
         }
        
@@ -41,8 +45,9 @@ const  Client = ()=>{
 
     return(
         <>
+            <BlogCard />
            <Container className={Style.PressingContainer}>
-           {Pressing().map((pressings) => 
+           {pressings.map((pressings) => 
                 (
                     <Grid container spacing={5}>
                         <PressingCard tarification='pas encore' pressingImage={pressings.logo} pressingLocation={pressings.localisation} pressingName={pressings.enseigne} nomber_avis='0' note={pressings.note} />

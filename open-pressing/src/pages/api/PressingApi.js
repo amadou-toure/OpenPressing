@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react"
 
-export default function PressingApi()
+export default function PressingApi(setPressingList)
 {
-  const[pressingList,setPressingList] = useState(['il','ya','encore','rien'])
   const handleResult = (result) =>
   {
     setPressingList(result)
@@ -14,7 +13,7 @@ export default function PressingApi()
     localStorage.getItem('userId')
     useEffect(()=> 
     {
-      fetch('http://localhost:3100/pressing/',
+      fetch('http://localhost:3001/pressing/',
       {
         method: 'GET',
         headers: {
@@ -24,11 +23,10 @@ export default function PressingApi()
     .then(response=> response ? response.json(): console.log('echec de chargement des pressings'))
     .then( (result) => handleResult(result))
     .catch(error=>console.log(error))
-    }, [])
+    },[])
   
         
 
    
   }
-  return pressingList
 }
