@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Typography,
   Box,
@@ -15,7 +15,13 @@ import getEnseigne from "@/pages/api/getEnseigne";
 
 
 
+
 const enseigneTable = () => {
+const [enseigne,setEnseigne]=useState()
+getEnseigne([enseigne,setEnseigne]);
+if (enseigne!==null){
+  console.log(enseigne)
+}
   return (
     <BaseCard title="Product Perfomance">
       <Table
@@ -50,7 +56,7 @@ const enseigneTable = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {getEnseigne() != null? getEnseigne().map((enseigne) => (
+          {enseigne !== null? enseigne.map((enseigne) => (
             <TableRow key={enseigne.id_enseigne}>
               <TableCell>
                 <Typography

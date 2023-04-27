@@ -2,7 +2,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { Inter } from 'next/font/google';
 import styles from '@/styles/Home.module.css';
-import NavBar from '../components/NavBar';
+import NavBar from '../layouts/header/NavBar';
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
@@ -23,11 +23,6 @@ export default function Home(props) {
   return (
     <>
       <CssBaseline />
-        <NavBar />
-      <Toolbar />
-      <Container>
-      
-      </Container>
     </>
   );
 }

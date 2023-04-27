@@ -8,6 +8,7 @@ import {
 import Header from "./header/Header";
 import Sidebar from "./sidebar/Sidebar";
 import Footer from "./footer/Footer";
+import getEnseigne from "@/pages/api/getEnseigne";
 
 const MainWrapper = experimentalStyled("div")(() => ({
   display: "flex",
@@ -31,9 +32,12 @@ const PageWrapper = experimentalStyled("div")(({ theme }) => ({
 }));
 
 const FullLayout = (props) => {
+  
   const [isSidebarOpen, setSidebarOpen] = React.useState(false);
   const [isMobileSidebarOpen, setMobileSidebarOpen] = React.useState(false);
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"));
+  
+ 
   useEffect(()=>{
     
     props.route==='/admin'?setSidebarOpen(true):setSidebarOpen(false)
@@ -47,6 +51,8 @@ const FullLayout = (props) => {
         }}
         toggleMobileSidebar={() => setMobileSidebarOpen(true)}
       />
+    
+      
       
       <Sidebar
         isSidebarOpen={isSidebarOpen}

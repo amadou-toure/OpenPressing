@@ -61,9 +61,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function SearchAppBar(props) {
-  
-const [anchorElUser, setAnchorElUser] = useState(null);
+export default function SearchAppBar() {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -76,25 +74,10 @@ const [anchorElUser, setAnchorElUser] = useState(null);
           >
             MUI
           </Typography>
-          {props.isLoggedIn
-          ?<Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search>:null}
-          
           <Box marginLeft={3}
                 marginBottom={2}
                 marginTop={2} >
-            {props.isLoggedIn? 
-            <Avatar sx={{
-               width: 56, height: 56
-            }} src={props.profile}/>
-            :
+          
             < >
               <Button variant="contained" href='./signUp' >S'inscrire</Button>
               <Button marginLeft={3}  sx={{ color:'white',
@@ -103,10 +86,7 @@ const [anchorElUser, setAnchorElUser] = useState(null);
                               borderColor:'white',
               }} variant="outlined" href='./login'>Se connecter</Button>
             </>
-           
-            
-          }
-           
+
           </Box>
           
         </Toolbar>

@@ -9,6 +9,5 @@ export default function(pressing){
         body:JSON.stringify(pressing)
       })
         .then(res=> res.status===201? console.log('creeer avec succes') : console.log(`echec d'ajout de pressing`))
-        .then(data =>console.log(data))
         .catch(error=>console.log(error))
 }

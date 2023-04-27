@@ -1,5 +1,6 @@
 import { useState,useEffect } from "react"
 
+
 export default function auth(authUrl,logindata){
   const handleToken=(result)=>{
     if(typeof window !== 'undefined')

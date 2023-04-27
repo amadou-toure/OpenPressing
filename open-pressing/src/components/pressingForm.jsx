@@ -7,38 +7,35 @@ import {
   import BaseCard from "./baseCard/BaseCard";
   import SavePressing from "@/pages/api/SavePressing";
   import getEnseigne from "@/pages/api/getEnseigne";
+  import * as React from 'react'
 
   const PressingForm = () => {
-    
-    const handleSubmit=(event)=>{
-
-      event.preventDefault();
-
-      
-   
-    const data = new FormData(event.currentTarget);
-    if (getEnseigne!=undefined){
-       const newPressing=({
-      id_enseigne: getEnseigne.id_proprietaire,
-      localisation:data.get('localisation'),
-      contact:data.get('contact'),
-      })
-      SavePressing(newPressing);
-      console.log(newPressing);
+    const [enseigne,setEnseigne]=React.useState({})
+    getEnseigne(setEnseigne);
+    const handleSubmit=(event)=>
+    {
+      event.preventDefault()
+      const data = new FormData(event.currentTarget);
+      if (enseigne!=='undefined'){
+        const newPressing=({
+        id_enseigne: enseigne.id_proprietaire,
+        localisation:data.get('localisation'),
+        contact:data.get('contact'),
+        })
+        SavePressing(newPressing);
+        console.log(newPressing);
+      }
+      /*je met en commentaire ici pour ne pas oublier. plus tard, la page de creation des 
+      enseignes sera visible uniquement si le proprietaire n'as pas d'enseigne en base de donnee
+      apres connexion, au niveau de la gestion des pressings, son enseigne est display
+      en haut dans une card, si il n'en a pas, un message s'affichera a cet endroit et l'invitant a 
+      creeer une enseigne, il sera rediriger sur la page en question */
     }
-     
- 
-    /*je met en commentaire ici pour ne pas oublier. plus tard, la page de creation des 
-    enseignes sera visible uniquement si le proprietaire n'as pas d'enseigne en base de donnee
-    apres connexion, au niveau de la gestion des pressings, son enseigne est display
-    en haut dans une card, si il n'en a pas, un message s'affichera a cet endroit et l'invitant a 
-    creeer une enseigne, il sera rediriger sur la page en question */
-  }
   
     return (
       <Grid container spacing={0} component='form' onSubmit={handleSubmit}>
         <Grid item xs={12} lg={12}>
-          <BaseCard title="Form Layout">
+          <BaseCard title="Ajouter un pressing">
             <Stack spacing={3}>
               <TextField
                 id="localisation"

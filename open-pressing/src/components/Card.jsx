@@ -6,12 +6,12 @@ import user1 from "../../assets/images/backgrounds/u2.jpg";
 import getEnseigne from "@/pages/api/getEnseigne";
 
 
-const customCard = () => {
+const customCard = (props) => {
+  const enseigne = props.enseigne
+  console.log(enseigne)
   return (
     <Grid container>
-      {getEnseigne().map((enseigne) => (
         <Grid
-          key={enseigne.id_proprietaire}
           item
           xs={12}
           lg={4}
@@ -53,7 +53,6 @@ const customCard = () => {
             </CardContent>
           </Card>
         </Grid>
-      ))}
     </Grid>
   );
 };

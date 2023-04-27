@@ -1,7 +1,7 @@
 import PressingCard from '../components/PressingCard';
 import { Container } from '@mui/system';
 import { Grid } from '@mui/material';
-import NavBar from '../components/NavBar'
+import NavBar from '../layouts/header/NavBar'
 
 import { useState,useEffect } from 'react';
 import { useRouter } from 'next/router';

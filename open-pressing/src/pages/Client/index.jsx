@@ -1,4 +1,4 @@
-import NavBar from '../../components/NavBar'
+import NavBar from '../../layouts/header/NavBar'
 import { useState,useEffect } from 'react'
 import { Redirect } from 'next/dist/lib/load-custom-routes'
 import Router from 'next/router'
