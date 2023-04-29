@@ -5,16 +5,18 @@ import Router from 'next/router'
 import cookie from '../api/cookieSplitter'
 import PressingCard from '../../components/PressingCard'
 import { Container} from '@mui/system'
-import { Grid } from '@mui/material'
+import { Grid,Button } from '@mui/material'
 import Pressing from '../api/PressingApi'
 import Style from '../../styles/Client.module.css'
 import BlogCard from '@/components/dashboard/BlogCard'
+import pressing from '../admin/pressing'
+import Card from '@/components/commande'
 const  Client = ()=>{
     const [data,setData] = useState()
     const [pressings,setPressings] = useState([])
+    const [i,setI]=useState(0)
 
     Pressing(setPressings)
-    console.log(pressings)
     const handleResult=(result)=>{
         setData(result)
         
@@ -40,13 +42,37 @@ const  Client = ()=>{
         },[])
         
         }
-       
+        const [openCard,setOpenCard]=useState(false)
+        const [selectedPressing,SetselectedPressing]=useState({})
+        console.log(selectedPressing)
+            // setOpenCard(true)
         
 
     return(
         <>
-            <BlogCard />
-           <Container className={Style.PressingContainer}>
+        <Grid container>
+            {!openCard ? pressings.map((pressing)=>
+            (
+                
+            <Grid
+          
+          item
+          xs={12}
+          lg={4}
+          sx={{
+            display: "flex",
+            alignItems: "stretch",
+          }}
+          key={pressing.id.toString()}
+        >
+                <PressingCard  id={pressing.id} enseigne={pressing.enseigne} localisation={pressing.localisation} note={pressing.note} setEntry={SetselectedPressing} setAction={setOpenCard} action={openCard} />
+                </Grid> 
+                )
+            ):<Card props={selectedPressing}/>}
+             
+        </Grid>
+           
+           {/* <Container className={Style.PressingContainer}>
            {pressings.map((pressings) => 
                 (
                     <Grid container spacing={5}>
@@ -56,7 +82,7 @@ const  Client = ()=>{
             }
                 
                 
-           </Container>
+           </Container> */}
            
             
         </>
