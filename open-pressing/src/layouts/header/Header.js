@@ -6,6 +6,9 @@ import PropTypes from "prop-types";
 import SearchDD from "./SearchDD";
 import ProfileDD from "./ProfileDD";
 import {Button} from "@mui/material";
+import Link from "next/link";
+import navItems from "./navItems";
+
 
 const Header = ({ sx, customClass, toggleMobileSidebar, position, id}) => {
   const [isLogedIn,setLogin]=React.useState(false)
@@ -43,7 +46,9 @@ const Header = ({ sx, customClass, toggleMobileSidebar, position, id}) => {
         {/* ------------------------------------------- */}
         <SearchDD />
         {/* ------------ End Menu icon ------------- */}
-
+          {navItems.map((nav)=>
+            <Button variant="a" href={nav.href}>{nav.icon}{nav.title}</Button>
+          )}
         <Box flexGrow={1} />
 
         {isLogedIn?<ProfileDD />:<Box marginLeft={3}

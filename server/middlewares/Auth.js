@@ -9,6 +9,6 @@ module.exports = (req,res,next)=>{
             next()
         });
     }catch(error){
-       res.json({type:'FRom auth middleware',message:error})
+       res.json({type:'From auth middleware',message:error})
     }
 }                                                              

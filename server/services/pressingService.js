@@ -11,6 +11,13 @@ const getPressings= (req,res)=>{
     })
 }
 
+const getProprietairePressings=(req,res)=>{
+    pool.query(queries.getProprietairePressings,[req.params.id],(error,results)=>{
+        if (error) throw error
+        res.json(results.rows)
+    })
+}
+
 const getOnePressing = (req,res)=>{
     pool.query(queries.getOnePressing,[req.params.id],(error,results)=>{
         if (error) throw error
@@ -19,16 +26,21 @@ const getOnePressing = (req,res)=>{
 }
 
 const createPressing=(req,res)=>{
-    pool.query(queries.createPressing,[req.body.id_enseigne,req.body.localisation,req.body.contact],(error,results)=>{ 
+    try{
+         pool.query(queries.createPressing,[req.body.id_enseigne,req.body.localisation,req.body.contact],(error,results)=>{ 
          if (error){
         res.json(error).status(400)
         console.log(error)
 
     }else{
-        res.status(201)
+        res.status(201).json({succes:"pressing enregister!"})
 
     }
     })
+    }catch(error){
+        res.json(error).status(401)
+    }
+   
    
 }
 const createEnseigne=(req,res)=>{
@@ -38,7 +50,7 @@ const createEnseigne=(req,res)=>{
         console.log(error)
 
     }else{
-        res.status(201)
+        res.status(201).json({succes:"enseigne enregistrer avec succes"})
 
     }
     })
@@ -52,5 +64,5 @@ const getEnseigne=(req,res)=>{
 }
 
 module.exports={
-    getOnePressing,getPressings,createPressing,createEnseigne,getEnseigne
+    getOnePressing,getPressings,createPressing,createEnseigne,getEnseigne,getProprietairePressings
 }

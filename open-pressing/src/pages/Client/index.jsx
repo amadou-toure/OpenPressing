@@ -11,6 +11,7 @@ import Style from '../../styles/Client.module.css'
 import BlogCard from '@/components/dashboard/BlogCard'
 import pressing from '../admin/pressing'
 import Card from '@/components/commande'
+import Toast from '@/components/Toast'
 const  Client = ()=>{
     const [data,setData] = useState()
     const [pressings,setPressings] = useState([])
@@ -50,6 +51,7 @@ const  Client = ()=>{
 
     return(
         <>
+       
         <Grid container>
             {!openCard ? pressings.map((pressing)=>
             (
