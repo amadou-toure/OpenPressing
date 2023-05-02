@@ -39,6 +39,7 @@ const handleClick=()=>{
               p: 0,
               width: "100%",
               display: "flex",
+              flexDirection:'row',
               alignItems: "stretch",
             }}
           >
@@ -47,6 +48,8 @@ const handleClick=()=>{
               sx={{
                 paddingLeft: "30px",
                 paddingRight: "30px",
+                display: "flex",
+              flexDirection:'column',
               }}
             >
               <Typography
@@ -71,8 +74,7 @@ const handleClick=()=>{
               <br />
               <Rating name='read-only' value={pressing.note} readOnly precision={0.5} size='small' />
               <br />
-            </CardContent>
-            <Button
+              <Button
                 variant="contained"
                 sx={{
                   mt: "15px",
@@ -82,6 +84,8 @@ const handleClick=()=>{
               >
                 Commander
             </Button>
+            </CardContent>
+           
           </Card>
   );
 };
