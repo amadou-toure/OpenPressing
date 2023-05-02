@@ -1,80 +1,119 @@
 import NavBar from '../../layouts/header/NavBar'
-import { useState,useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { Redirect } from 'next/dist/lib/load-custom-routes'
 import Router from 'next/router'
 import cookie from '../api/cookieSplitter'
 import PressingCard from '../../components/PressingCard'
-import { Container} from '@mui/system'
-import { Grid,Button } from '@mui/material'
+import { Container } from '@mui/system'
+import { Grid, Button } from '@mui/material'
 import Pressing from '../api/PressingApi'
 import Style from '../../styles/Client.module.css'
 import BlogCard from '@/components/dashboard/BlogCard'
 import pressing from '../admin/pressing'
 import Card from '@/components/commande'
+import TextField from '@mui/material/TextField';
+import Stack from '@mui/material/Stack';
+import Autocomplete from '@mui/material/Autocomplete';
+import Select from '@mui/material/Select';
+import SearchTwoToneIcon from '@mui/icons-material/SearchTwoTone';
+import MenuItem from '@mui/material/MenuItem';
+
 import Toast from '@/components/Toast'
-const  Client = ()=>{
-    const [data,setData] = useState()
-    const [pressings,setPressings] = useState([])
-    const [i,setI]=useState(0)
+const Client = () => {
+    const [data, setData] = useState()
+    const [pressings, setPressings] = useState([])
+    const [i, setI] = useState(0)
+    const [filter, setFilter] = useState("localisation")
 
     Pressing(setPressings)
-    const handleResult=(result)=>{
+    const handleResult = (result) => {
         setData(result)
-        
+
     }
-    if(typeof window !== 'undefined')
-    {
-        const url = "http://localhost:3001/clients/"+localStorage.getItem('userId')
-        const config = 
+    if (typeof window !== 'undefined') {
+        const url = "http://localhost:3001/clients/" + localStorage.getItem('userId')
+        const config =
         {
             method: 'GET',
-            headers: 
+            headers:
             {
-                'Authorization':localStorage.getItem('token')
-            }  
+                'Authorization': localStorage.getItem('token')
+            }
         };
 
-        useEffect( ()=> 
-        {
+        useEffect(() => {
 
-            fetch(url,config)
-            .then(response => response? response.status===(401) ? Router.push('./login') : response.json():console.log('erreur'))
-            .then (result => handleResult(result[0]))
-        },[])
-        
-        }
-        const [openCard,setOpenCard]=useState(false)
-        const [selectedPressing,SetselectedPressing]=useState({})
-        console.log(selectedPressing)
-            // setOpenCard(true)
-        
+            fetch(url, config)
+                .then(response => response ? response.status === (401) ? Router.push('./login') : response.json() : console.log('erreur'))
+                .then(result => handleResult(result[0]))
+        }, [])
 
-    return(
+    }
+    const [openCard, setOpenCard] = useState(false)
+    const [selectedPressing, SetselectedPressing] = useState({})
+    console.log(filter)
+    const handleChange = (event) => {
+        setFilter(event.target.value);
+      };
+    
+    // setOpenCard(true)
+
+
+    return (
         <>
-       
-        <Grid container>
-            {!openCard ? pressings.map((pressing)=>
-            (
-                
-            <Grid
-          
-          item
-          xs={12}
-          lg={4}
-          sx={{
-            display: "flex",
-            alignItems: "stretch",
-          }}
-          key={pressing.id.toString()}
+            <br />
+            <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={filter}
+          label="filtre"
+          onChange={handleChange}
         >
-                <PressingCard  id={pressing.id} enseigne={pressing.enseigne} localisation={pressing.localisation} note={pressing.note} setEntry={SetselectedPressing} setAction={setOpenCard} action={openCard} />
-                </Grid> 
+          <MenuItem value='localisation'>Localisation</MenuItem>
+          <MenuItem value='enseigne'>Enseigne</MenuItem>
+          <MenuItem value='note'>Note</MenuItem>
+        </Select>
+            <Autocomplete
+                freeSolo
+                id="free-solo-2-demo"
+                disableClearable
+                options={pressings.map((option) => filter === 'localisation' ? option.localisation : filter === 'note' ? option.note : option.enseigne)}
+                renderInput={(params) => (
+                    <TextField
+
+                        {...params}
+                        label={<SearchTwoToneIcon />}
+                        InputProps={{
+                            ...params.InputProps,
+                            type: 'search',
+                        }}
+                    />
+                )}
+            />
+            <br />
+            <Grid container>
+                {!openCard ? pressings.map((pressing) =>
+                (
+
+                    <Grid
+
+                        item
+                        xs={12}
+                        lg={4}
+                        sx={{
+                            display: "flex",
+                            alignItems: "stretch",
+                        }}
+                        key={pressing.id.toString()}
+                    >
+                        <PressingCard id={pressing.id} enseigne={pressing.enseigne} localisation={pressing.localisation} note={pressing.note} setEntry={SetselectedPressing} setAction={setOpenCard} action={openCard} />
+                    </Grid>
                 )
-            ):<Card props={selectedPressing}/>}
-             
-        </Grid>
-           
-           {/* <Container className={Style.PressingContainer}>
+                ) : <Card props={selectedPressing} />}
+
+            </Grid>
+
+            {/* <Container className={Style.PressingContainer}>
            {pressings.map((pressings) => 
                 (
                     <Grid container spacing={5}>
@@ -85,8 +124,8 @@ const  Client = ()=>{
                 
                 
            </Container> */}
-           
-            
+
+
         </>
     )
 

@@ -1,6 +1,6 @@
 import { React, useState } from "react"
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
-import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { StaticDateTimePicker } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import saveCommande from '../pages/api/Commande.js';
 import { Alert, AlertTitle } from '@mui/material';
@@ -19,7 +19,7 @@ import {
     Typography,
 } from "@mui/material";
 
-const BaseCard = (props) => {
+const CommandeCard = (props) => {
     const [date, setDate] = useState()
     const [result, setResult] = useState(null)
     const [alert,setAlert]=useState(false)
@@ -36,7 +36,7 @@ const BaseCard = (props) => {
             lieu_recuperation: data.get('lieu'),
         })
         saveCommande(newCommande, setResult);
-        console.log(newCommande);
+        console.log(date);
         setAlert(true)
 
 
@@ -68,23 +68,19 @@ const BaseCard = (props) => {
                 </Box>
                 <CardContent>
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
-                        <DateTimePicker
-                            sx={{
-                                width: '100%'
-                            }}
-                            label="Selectionner une date de collecte"
-                            id="date"
-                            name="date"
+                    <StaticDateTimePicker
+                            ampm={false}
                             value={date}
-                            onChange={(newValue) => setDate(newValue)} disablePast
-                            views={['year', 'month', 'day', 'hours', 'minutes']}
+                            onChange={(newValue) => setDate(newValue)} 
+
                         />
                     </LocalizationProvider>
-                </CardContent>
-                <Stack spacing={3}>
+                    <Stack spacing={3}>
                     <Typography>entrer dans l'ordre les details du lieu de recuperation: quartier,infos supplementaires</Typography>
                     <TextField id="lieu" name="lieu" label="lieu de recuperation" variant="outlined" />
                 </Stack>
+                </CardContent>
+                
                 <br />
                 <Button variant="contained" mt={2} type='submit'>
                     Enregistrer
@@ -95,4 +91,4 @@ const BaseCard = (props) => {
     );
 };
 
-export default BaseCard;
+export default CommandeCard;
