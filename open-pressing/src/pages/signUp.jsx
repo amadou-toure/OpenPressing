@@ -19,7 +19,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import  ImageUploader from '../components/ImageUploader'
 import RadioGroup from '@mui/material/RadioGroup';
 import {Radio} from '@mui/material'
-
+import { router } from 'next/router';
 
 
 
@@ -49,10 +49,10 @@ export default function SignUp() {
         headers:{
           'content-Type':'application/json'
         },
-        body:JSON.stringify(newClient)
+        body:JSON.stringify(newUser)
       })
       // .then(res=> res.status===200? console.log(res.json()) : console.log('echec de connexion'))
-        .then(data =>console.log(data))
+        .then(router.push('/Client'))
         .catch(error=>console.log(error))
     :
     fetch("http://localhost:3001/owners/",{
@@ -63,7 +63,7 @@ export default function SignUp() {
         body:JSON.stringify(newUser)
       })
       // .then(res=> res.status===200? console.log(res.json()) : console.log('echec de connexion'))
-        .then(data =>console.log(data))
+        .then(data =>Router.push('/admin'))
         .catch(error=>console.log(error))
   };
 
@@ -170,12 +170,6 @@ export default function SignUp() {
               <Grid item xs={12}>
                 <ImageUploader photo={pp} setPhoto={setPp}/>
               </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
-                />
-              </Grid>
             </Grid>
             <Button
               type="submit"
@@ -183,18 +177,17 @@ export default function SignUp() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign Up
+              Enregistrer
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="/login" variant="body2">
-                  Already have an account? Sign in
+                  vous avez deja un compte ? connectez vous
                 </Link>
               </Grid>
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
       </Container>
   );
 }

@@ -8,6 +8,7 @@ import ProfileDD from "./ProfileDD";
 import {Button} from "@mui/material";
 import Link from "next/link";
 import navItems from "./navItems";
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 
 const Header = ({ sx, customClass, toggleMobileSidebar, position, id}) => {
@@ -17,7 +18,6 @@ const Header = ({ sx, customClass, toggleMobileSidebar, position, id}) => {
     useEffect(()=>{
       setLogin(true)
     })
-    console.log(localStorage.getItem('userId'))
   }else{
     useEffect(()=>{
       setLogin(false)
@@ -39,7 +39,7 @@ const Header = ({ sx, customClass, toggleMobileSidebar, position, id}) => {
             },
           }}
         >
-          {/* <FeatherIcon icon="menu" width="20" height="20" /> */}
+          <KeyboardArrowDownIcon />
         </IconButton>
         {/* ------------------------------------------- */}
         {/* Search Dropdown */}

@@ -9,7 +9,6 @@ export default function () {
    useEffect(()=>{
     getEnseigne(setEnseigne);
    },[0])
-    console.log(enseigne[0])
     return(
         <>
             <Card enseigne={enseigne}/>

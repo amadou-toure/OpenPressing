@@ -28,7 +28,7 @@ const ProfileDD = () => {
     
     if(typeof window!=undefined){
       if(typeof localStorage !=undefined){
-        console.log('rien')
+        router.push('/login')
       }
       
     }
@@ -117,7 +117,7 @@ const ProfileDD = () => {
           <Divider />
           <Box p={2}>
             <Link to="/">
-              <Button fullWidth variant="contained" color="primary" onClick={handlelogout()}>
+              <Button fullWidth variant="contained" color="primary" onClick={handlelogout}>
                 Logout
               </Button>
             </Link>

@@ -1,6 +1,8 @@
 import React from "react";
 import NextLink from "next/link";
 import PropTypes from "prop-types";
+import DryCleaningIcon from '@mui/icons-material/DryCleaning';
+
 import {
   Box,
   Drawer,
@@ -23,6 +25,10 @@ const Sidebar = ({ isMobileSidebarOpen, onSidebarClose, isSidebarOpen }) => {
   const [open, setOpen] = React.useState(true);
 
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"));
+  const [selectedIndex, setSelectedIndex] = React.useState(1);
+  const handleListItemClick = (event, index) => {
+    setSelectedIndex(index);
+  };
 
   const handleClick = (index) => {
     if (open === index) {
@@ -35,16 +41,18 @@ const Sidebar = ({ isMobileSidebarOpen, onSidebarClose, isSidebarOpen }) => {
   const location = curl.pathname;
 
   const SidebarContent = (
-    <Box p={2} height="100%">
-      <LogoIcon />
+    <Box p={2}>
+      <DryCleaningIcon fontSize="large" sx={{color: 'cyan', fontSize :'200px',height:'100px'}}/>
+     < Typography variant="body2"> Open Pressing</Typography>
       <Box mt={2}>
         <List>
           {Menuitems.map((item, index) => (
-            <List component="li" disablePadding key={item.title}>
+            <List component="nav" disablePadding key={item.title}>
+              
               <NextLink href={item.href}>
                 <ListItem
                   onClick={() => handleClick(index)}
-                  button
+                  
                   selected={location === item.href}
                   sx={{
                     mb: 1,
@@ -56,19 +64,11 @@ const Sidebar = ({ isMobileSidebarOpen, onSidebarClose, isSidebarOpen }) => {
                   }}
                 >
                   <ListItemIcon>
-                    {/* <FeatherIcon
-                      style={{
-                        color: `${location === item.href ? "white" : ""} `,
-                      }}
-                      icon={item.icon}
-                      width="20"
-                      height="20"
-                    /> */}
+                    { 
+                    item.icon
+                     }
                   </ListItemIcon>
-
-                  <ListItemText onClick={onSidebarClose}>
-                    {item.title}
-                  </ListItemText>
+                  <ListItemText sx={{textDecoration:'none',color:'black',fontSize:500}} onClick={onSidebarClose} primary={item.title} />
                 </ListItem>
               </NextLink>
             </List>

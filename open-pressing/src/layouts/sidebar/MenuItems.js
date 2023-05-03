@@ -1,27 +1,32 @@
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import LocalLaundryServiceIcon from '@mui/icons-material/LocalLaundryService';
+import BadgeIcon from '@mui/icons-material/Badge';
+import BallotIcon from '@mui/icons-material/Ballot';
+import CardMembershipIcon from '@mui/icons-material/CardMembership';
 const Menuitems = [
   {
     title: "Tableau de bord",
-    icon: "home",
+    icon: <DashboardIcon />,
     href: "/admin/",
   },
   {
     title: "Enseigne",
-    icon: "disc",
+    icon: <BallotIcon/>,
     href: "/admin/enseigneSave",
   },
   {
     title: "Gestion des pressing",
-    icon: "disc",
+    icon: <LocalLaundryServiceIcon />,
     href: "/admin/pressing",
   },
   {
     title: "Gestion des employees",
-    icon: "layout",
+    icon: <BadgeIcon />,
     href: "/admin/forms",
   },
   {
     title: "Gestion des abonnements",
-    icon: "info",
+    icon: <CardMembershipIcon/>,
     href: "/alerts",
   },
  

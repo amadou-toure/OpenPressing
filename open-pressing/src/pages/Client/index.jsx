@@ -23,9 +23,10 @@ const Client = () => {
     const [data, setData] = useState()
     const [pressings, setPressings] = useState([])
     const [i, setI] = useState(0)
-    const [filter, setFilter] = useState("localisation")
+    const [filter, setFilter] = useState("")
+    const getPressings = Pressing.getPressing
 
-    Pressing(setPressings)
+    getPressing(setPressings)
     const handleResult = (result) => {
         setData(result)
 
@@ -51,65 +52,125 @@ const Client = () => {
     }
     const [openCard, setOpenCard] = useState(false)
     const [selectedPressing, SetselectedPressing] = useState({})
+    const [search, setSearch] = useState('')
     console.log(filter)
     const handleChange = (event) => {
         setFilter(event.target.value);
-      };
-    
+    };
+    const handleSearchChange=(event)=>{
+        setSearch(event.target.value)
+    }
+
     // setOpenCard(true)
 
 
     return (
         <>
             <br />
-            <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={filter}
-          label="filtre"
-          onChange={handleChange}
-        >
-          <MenuItem value='localisation'>Localisation</MenuItem>
-          <MenuItem value='enseigne'>Enseigne</MenuItem>
-          <MenuItem value='note'>Note</MenuItem>
-        </Select>
-            <Autocomplete
-                freeSolo
-                id="free-solo-2-demo"
-                disableClearable
-                options={pressings.map((option) => filter === 'localisation' ? option.localisation : filter === 'note' ? option.note : option.enseigne)}
-                renderInput={(params) => (
-                    <TextField
+            <Grid sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                width: '100%'
+            }}>
+                <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={filter}
+                    label="filtre"
+                    onChange={handleChange}
+                >
+                    <MenuItem value='localisation'>Localisation</MenuItem>
+                    <MenuItem value='enseigne'>Enseigne</MenuItem>
+                    <MenuItem value='note'>Note</MenuItem>
+                </Select>
+                <Autocomplete
+                    sx={{
+                        width: "90%"
+                    }}
+                    freeSolo
+                    id="free-solo-2-demo"
+                    disableClearable
+                    
+                    options={pressings.map((option) => filter === 'localisation' ? option.localisation : filter === 'note' ? option.note : option.enseigne)}
+                    renderInput={(params) => (
+                        <TextField
+                        value={search}
+                            {...params}
+                            label={<SearchTwoToneIcon />}
+                            InputProps={{
+                                ...params.InputProps,
+                                type: 'search',
+                            }}
+                            onChange={handleSearchChange}
+                        />
+                    )}
+                />
+            </Grid>
 
-                        {...params}
-                        label={<SearchTwoToneIcon />}
-                        InputProps={{
-                            ...params.InputProps,
-                            type: 'search',
-                        }}
-                    />
-                )}
-            />
             <br />
             <Grid container>
                 {!openCard ? pressings.map((pressing) =>
                 (
+                    filter === 'localisation' ?
+                        pressing.localisation === search ?
+                            <Grid
 
-                    <Grid
+                                item
+                                xs={12}
+                                lg={4}
+                                sx={{
+                                    display: "flex",
+                                    alignItems: "stretch",
+                                }}
+                                key={pressing.id.toString()}
+                            >
+                                <PressingCard id={pressing.id} enseigne={pressing.enseigne} localisation={pressing.localisation} note={pressing.note} setEntry={SetselectedPressing} setAction={setOpenCard} action={openCard} />
+                            </Grid> : console.log('rien pour le moment') : filter === 'enseigne' ?
+                            pressing.enseigne === search ?
+                                <Grid
 
-                        item
-                        xs={12}
-                        lg={4}
-                        sx={{
-                            display: "flex",
-                            alignItems: "stretch",
-                        }}
-                        key={pressing.id.toString()}
-                    >
-                        <PressingCard id={pressing.id} enseigne={pressing.enseigne} localisation={pressing.localisation} note={pressing.note} setEntry={SetselectedPressing} setAction={setOpenCard} action={openCard} />
-                    </Grid>
+                                    item
+                                    xs={12}
+                                    lg={4}
+                                    sx={{
+                                        display: "flex",
+                                        alignItems: "stretch",
+                                    }}
+                                    key={pressing.id.toString()}
+                                >
+                                    <PressingCard id={pressing.id} enseigne={pressing.enseigne} localisation={pressing.localisation} note={pressing.note} setEntry={SetselectedPressing} setAction={setOpenCard} action={openCard} />
+                                </Grid> : console.log('rien pour le moment') : filter === 'note' ?
+                                pressing.note === search ?
+                                    <Grid
+
+                                        item
+                                        xs={12}
+                                        lg={4}
+                                        sx={{
+                                            display: "flex",
+                                            alignItems: "stretch",
+                                        }}
+                                        key={pressing.id.toString()}
+                                    >
+                                        <PressingCard id={pressing.id} enseigne={pressing.enseigne} localisation={pressing.localisation} note={pressing.note} setEntry={SetselectedPressing} setAction={setOpenCard} action={openCard} />
+                                    </Grid> : console.log('rien pour le moment'):
+                                      <Grid
+
+                                      item
+                                      xs={12}
+                                      lg={4}
+                                      sx={{
+                                          display: "flex",
+                                          alignItems: "stretch",
+                                      }}
+                                      key={pressing.id.toString()}
+                                  >
+                                      <PressingCard id={pressing.id} enseigne={pressing.enseigne} localisation={pressing.localisation} note={pressing.note} setEntry={SetselectedPressing} setAction={setOpenCard} action={openCard} />
+                                  </Grid>
+                     
                 )
-                ) : <Card props={selectedPressing} />}
+                ) : <Card pressing={selectedPressing} setOpenCard={setOpenCard} />}
 
             </Grid>
 

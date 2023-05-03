@@ -5,11 +5,12 @@ import {
     Button,
   } from "@mui/material";
   import BaseCard from "./baseCard/BaseCard";
-  import SavePressing from "@/pages/api/SavePressing";
+  import Pressing from "@/pages/api/PressingApi";
   import getEnseigne from "@/pages/api/getEnseigne";
   import * as React from 'react'
 
   const PressingForm = () => {
+    const savePressing = Pressing.savePressing
     const [enseigne,setEnseigne]=React.useState({})
     getEnseigne(setEnseigne);
     const handleSubmit=(event)=>
@@ -18,11 +19,11 @@ import {
       const data = new FormData(event.currentTarget);
       if (enseigne!=='undefined'){
         const newPressing=({
-        id_enseigne: enseigne.id_proprietaire,
+        id_enseigne: enseigne.id_enseigne,
         localisation:data.get('localisation'),
         contact:data.get('contact'),
         })
-        SavePressing(newPressing);
+        savePressing(newPressing);
         console.log(newPressing);
       }
       /*je met en commentaire ici pour ne pas oublier. plus tard, la page de creation des 

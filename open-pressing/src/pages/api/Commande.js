@@ -1,5 +1,5 @@
-export default function (commande,setResult) {
-    if (commande != null) {
+const saveCommande=(commande,setResult)=>{
+     if (commande != null) {
         fetch("http://localhost:3001/order", {
             method: 'POST',
             headers:
@@ -9,8 +9,10 @@ export default function (commande,setResult) {
             },
             body: JSON.stringify(commande)
         })
-            .then(res => res.status === 201 ? setResult(true) : setResult(false))
+            .then(res => res.status === 201 ? setResult('success') : setResult('error'))
             .catch(error => console.log(error))
     }
 
 }
+const getCommande=()=>{}
+export default {saveCommande,getCommande}

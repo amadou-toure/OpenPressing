@@ -8,52 +8,54 @@ import getEnseigne from "@/pages/api/getEnseigne";
 
 const customCard = (props) => {
   const enseigne = props.enseigne
-  console.log(enseigne)
   return (
-    <Grid container>
-        <Grid
-          item
-          xs={12}
-          lg={4}
-          sx={{
-            display: "flex",
-            alignItems: "stretch",
-          }}
-        >
-          <Card
+    
+      typeof enseigne !== "undefined" ?
+        <Grid container>
+          <Grid
+            item
+            lg={4}
             sx={{
-              p: 0,
-              width: "100%",
+              display: "flex",
+              alignItems: "stretch",
+              width:"100%"
             }}
           >
-            <Image src={user1} alt="img" />
-            <CardContent
+            <Card
               sx={{
-                paddingLeft: "30px",
-                paddingRight: "30px",
+                p: 0,
+                width: "100%",
               }}
             >
-              <Typography
+              <Image src={user1} alt="img" />
+              <CardContent
                 sx={{
-                  fontSize: "h4.fontSize",
-                  fontWeight: "500",
+                  paddingLeft: "30px",
+                  paddingRight: "30px",
                 }}
               >
-                {enseigne.nom_enseigne}
-              </Typography>
-              <Button
-                variant="contained"
-                sx={{
-                  mt: "15px",
-                }}
-                color='primary'
-              >
-                Learn More
-              </Button>
-            </CardContent>
-          </Card>
-        </Grid>
-    </Grid>
+                <Typography
+                  sx={{
+                    fontSize: "h4.fontSize",
+                    fontWeight: "500",
+                  }}
+                >
+                  {enseigne.nom_enseigne}
+                </Typography>
+                <Button
+                  variant="contained"
+                  sx={{
+                    mt: "15px",
+                  }}
+                  color='primary'
+                >
+                  modifier
+                </Button>
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid> : <h1>aucun pressing</h1>
+
   );
 };
 
