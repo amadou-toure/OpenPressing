@@ -7,6 +7,7 @@ const route = express.Router();
 route.post('/login',ownerService.logInOwner);
 route.get('/',ownerService.getOwner);
 route.post('/',ownerService.signUpOwner);
-route.get('/:id',auth,ownerService.getOneOwner)
+route.get('/:id',auth,ownerService.getOneOwner);
+route.post('/employee/',auth,ownerService.saveEmployee)
 
 module.exports = route

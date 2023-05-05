@@ -18,6 +18,7 @@ import { useRouter } from 'next/router';
 import RadioGroup from '@mui/material/RadioGroup';
 import {Radio} from '@mui/material';
 import Auth from './api/Authentification';
+import envFile from './api/envFile';
 
 import { useState } from 'react';
 import auth from './api/Authentification';
@@ -43,7 +44,7 @@ export default function SignInSide() {
       mot_de_passe: data.get('password'),
     });
     if (user==='Client'){
-     auth("http://localhost:3001/clients/login",logindata)
+     auth(envFile.serverURL+"/clients/login",logindata)
      if(typeof window !== 'undefined')
       {
         if (localStorage.getItem('token'))
@@ -58,7 +59,7 @@ export default function SignInSide() {
     }
     else if (user==='Owner')
     {
-      auth("http://localhost:3001/owners/login",logindata)
+      auth(envFile.serverURL+"/owners/login",logindata)
       if(typeof window !== 'undefined')
       {
         if (localStorage.getItem('token'))

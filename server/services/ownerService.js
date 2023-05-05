@@ -31,7 +31,20 @@ const signUpOwner = (req,res)=>{
          })
     })
  }
+ const saveEmployee=(req,res)=>{
+    console.log(req.body)
+    bCrypt.hash(req.body.mot_de_passe_employee,10,(error,hash)=>{
+        pool.query(queries.saveEmployee,[req.body.id_pressing,req.body.adresse_email_employee,hash],(error,results)=>{
+            if (error) {
+                res.json({message:'error'});
+            }
+            res.json({message:'success'});
+           
+        })
+   })
+ }
  
+
  const logInOwner = (req,res)=>{
      pool.query(queries.logIn,[req.body.adresse_email],(error,results)=>{
          if (!results.rows) {
@@ -57,5 +70,5 @@ const signUpOwner = (req,res)=>{
  }
  
  module.exports={
-   signUpOwner,logInOwner,getOwner,getOneOwner
+   signUpOwner,logInOwner,getOwner,getOneOwner,saveEmployee
 }

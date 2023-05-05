@@ -23,7 +23,7 @@ import BaseCard from "@/components/baseCard/BaseCard";
 export default function () {
     const getCommande = Commande.getClientCommande;
     const updateCommande = Commande.updateClientCommande;
-    const [result, setResult] = useState(null);
+    const [result, setResult] = useState('');
     const [date, setDate] = useState(null);
     const [commandes, setCommandes] = useState([])
     const [place, setPlace] = useState('')
@@ -35,6 +35,10 @@ export default function () {
         setId(Commande.id_commande)
         setDefault(Commande.lieu_recuperation)
         openForm()
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+        });
     }
     const openForm =()=>{
         if (isOpen){
@@ -50,11 +54,13 @@ export default function () {
             date_depot:date,
             })
         console.log(newBody)
-        updateCommande(newBody,id, setResult)  
+        updateCommande(newBody,id,setResult)  
+        console.log(result)
     }
     useEffect(() => {
         getCommande(setCommandes)
     }, [])
+    console.log(result)
 
 
     return (

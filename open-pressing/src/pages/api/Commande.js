@@ -1,6 +1,7 @@
+import envFile from "./envFile"
 const saveCommande=(commande,setResult)=>{
      if (commande != null) {
-        fetch("http://localhost:3001/order", {
+        fetch( envFile.serverURL+"/order", {
             method: 'POST',
             headers:
             {
@@ -22,7 +23,7 @@ const getPressingCommande=(setCommande,idPressing)=>{
     if(typeof window !== 'undefined')
     {
       
-        fetch('http://localhost:3001/order/'+idPressing,
+        fetch(envFile.serverURL+'/order/'+idPressing,
         {
           method: 'GET',
           headers: {
@@ -37,8 +38,10 @@ const getPressingCommande=(setCommande,idPressing)=>{
     } 
 }
 const updateClientCommande=(body,id,setResult)=>{
-    
-    fetch("http://localhost:3001/order/Client/"+id, {
+    const handleResult=(result)=>{
+        setResult(result)
+    }
+    fetch(envFile.serverURL+"/order/Client/"+id, {
         method: 'PUT',
         headers:
         {
@@ -47,7 +50,7 @@ const updateClientCommande=(body,id,setResult)=>{
         },
         body: JSON.stringify(body)
     })
-        .then(res => res.status === 204 ? setResult('success') : setResult('error'))
+        .then(res => res.status === 204 ? handleResult('success') :handleResult('error'))
         .catch(error => console.log(error))
 
 }
@@ -60,7 +63,7 @@ const getClientCommande=(setCommande)=>{
     if(typeof window !== 'undefined')
     {
       
-        fetch('http://localhost:3001/order/Client/'+localStorage.getItem("userId"),
+        fetch(envFile.serverURL+'/order/Client/'+localStorage.getItem("userId"),
         {
           method: 'GET',
           headers: {

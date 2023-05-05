@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Typography,
   Box,
@@ -7,54 +7,100 @@ import {
   TableCell,
   TableHead,
   TableRow,
+  Grid,
+  Stack,
+  TextField,
   Chip,
   Button,
 } from "@mui/material";
 import BaseCard from "./baseCard/BaseCard";
+import Employee from "@/pages/api/Employee";
+import { Alert, AlertTitle } from '@mui/material';
 
-const products = [
-  {
-    id: "1",
-    name: "Sunil Joshi",
-    post: "Web Designer",
-    pname: "Elite Admin",
-    priority: "Low",
-    pbg: "primary.main",
-    budget: "3.9",
-  },
-  {
-    id: "2",
-    name: "Andrew McDownland",
-    post: "Project Manager",
-    pname: "Real Homes WP Theme",
-    priority: "Medium",
-    pbg: "secondary.main",
-    budget: "24.5",
-  },
-  {
-    id: "3",
-    name: "Christopher Jamil",
-    post: "Project Manager",
-    pname: "MedicalPro WP Theme",
-    priority: "High",
-    pbg: "error.main",
-    budget: "12.8",
-  },
-  {
-    id: "4",
-    name: "Nirav Joshi",
-    post: "Frontend Engineer",
-    pname: "Hosting Press HTML",
-    priority: "Critical",
-    pbg: "success.main",
-    budget: "2.4",
-  },
-];
+const EmployeeForm = (props) => {
+  const saveEmployee = Employee.saveEmploeyee
+  const[result,setResult]=useState('')
+ 
+  const handleClose = () => {
+    setResult('')
+    props.setOpenForm(false)
+}
+  const handleSubmit = (event) => {
+
+      event.preventDefault();
+      const id = localStorage.getItem('userId');
+
+      const data = new FormData(event.currentTarget);
+      const newEmployee = ({
+          id_pressing:props.id_pressing,
+          adresse_email_employee: data.get('email'),
+          mot_de_passe_employee: data.get('password')
+      })
+      saveEmployee(newEmployee,setResult);
+      console.log(newEmployee);
+
+
+  }
+  return (
+    <>
+     {
+     result==='' ?
+        <Grid container spacing={0} component='form' onSubmit={handleSubmit}>
+        <Grid item xs={12} lg={12}>
+            <BaseCard title="Nouvelle Employer">
+                <Stack spacing={3}>
+                    <TextField
+                        required
+                        id="email"
+                        name="email"
+                        label="Adresse Email"
+                        variant="outlined"
+                    />
+                    <TextField id="password" name="password" label="Mot de passe" variant="outlined" />
+
+                </Stack>
+                <br />
+                <Button variant="contained" mt={2} type='submit'>
+                    Enregistrer
+                </Button>
+            </BaseCard>
+        </Grid>
+    </Grid>:result==='success'? <Alert sx={{
+                        width: '100%',
+                        display: 'flex',
+                        flexDirection: "column",
+                        alignItems: 'center'
+                    }} onClose={handleClose} severity="success">
+                        <AlertTitle>Employer enregister avec succes</AlertTitle>
+                    </Alert> : result==='error'? <Alert onClose={handleClose} severity="error">
+                        <AlertTitle>Une erreur s'est produite</AlertTitle>
+
+                        <strong>veuilliez reessayer</strong>
+                    </Alert>:null
+  
+  }
+    </>
+   
+      
+  );
+};
 
 const yourPressingData = (pressing) => {
   console.log(pressing.pressing)
+  const [openForm,setOpenForm] = useState(false)
+  const [id,setId]= useState(null)
+  const handleEmployeee=(id_pressing)=>{
+    setId(id_pressing)
+    setOpenForm(true)
+    
+   
+  }
+ 
   return (
+    <>
+    {openForm? <EmployeeForm id_pressing={id} setOpenForm={setOpenForm} />:null}
     <BaseCard title="Liste des Pressings">
+
       <Table
         aria-label="simple table"
         sx={{
@@ -160,6 +206,7 @@ const yourPressingData = (pressing) => {
               </TableCell>
               <TableCell align="right">
               <Box>
+                  <Button onClick={()=>handleEmployeee(pressing.id_pressing)}>Ajouter un employer</Button>
                   <Button>modifier</Button>
                   <Button>Supprimer</Button>
                   </Box>
@@ -171,6 +218,8 @@ const yourPressingData = (pressing) => {
         </TableBody>
       </Table>
     </BaseCard>
+    </>
+    
   );
 };
 

@@ -19,7 +19,7 @@ export default function auth(authUrl,logindata){
     body:JSON.stringify(logindata)
   })
     .then(response=> response ? response.json(): console.log('echec de connexion'))
-    .then( (result) => handleToken(result) )
+    .then((result) => handleToken(result) )
     .catch(error=> console.log(error))
     console.log(localStorage.getItem('token'))
 

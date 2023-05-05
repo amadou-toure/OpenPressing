@@ -1,5 +1,6 @@
+import envFile from "./envFile"
 export default function(enseigne){
-    fetch("http://localhost:3001/pressing/enseigne/",{
+    fetch(envFile.serverURL+"/pressing/enseigne/",{
         method:'POST',
         headers:
         {

@@ -12,9 +12,11 @@ const getPressings= (req,res)=>{
 }
 
 const getProprietairePressings=(req,res)=>{
+    
     pool.query(queries.getProprietairePressings,[req.params.id],(error,results)=>{
         if (error) throw error
-        res.json(results.rows)
+        console.log (req.params.id)     
+          res.json(results.rows)
     })
 }
 

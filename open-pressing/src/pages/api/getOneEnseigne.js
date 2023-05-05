@@ -1,4 +1,5 @@
 import { useEffect } from "react"
+import envFile from "./envFile"
 
 export default function getEnseigne (setEnseigne)
 {
@@ -9,7 +10,7 @@ export default function getEnseigne (setEnseigne)
   if (typeof window !== 'undefined')
   {
     
-      fetch('http://localhost:3001/pressing/enseigne/',
+      fetch(envFile.serverURL+'/pressing/enseigne/',
       {
         method: 'GET',
     })
