@@ -17,7 +17,6 @@ import Autocomplete from '@mui/material/Autocomplete';
 import Select from '@mui/material/Select';
 import SearchTwoToneIcon from '@mui/icons-material/SearchTwoTone';
 import MenuItem from '@mui/material/MenuItem';
-import envFile from '../api/envFile'
 
 import Toast from '@/components/Toast'
 const Client = () => {
@@ -27,13 +26,13 @@ const Client = () => {
     const [filter, setFilter] = useState("")
     const getPressings = Pressing.getPressing
 
-    getPressings(setPressings)
+    getPressing(setPressings)
     const handleResult = (result) => {
         setData(result)
 
     }
     if (typeof window !== 'undefined') {
-        const url = envFile.serverURL+"/clients/" + localStorage.getItem('userId')
+        const url = "http://localhost:3001/clients/" + localStorage.getItem('userId')
         const config =
         {
             method: 'GET',

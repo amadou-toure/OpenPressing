@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react"
-import envFile from "./envFile"
 
   const savePressing=(pressing)=>{
-    fetch(envFile.serverURL+"/pressing/",{
+    fetch("http://localhost:3001/pressing/",{
       method:'POST',
       headers:
       {
@@ -26,7 +25,7 @@ import envFile from "./envFile"
     localStorage.getItem('userId')
     useEffect(()=> 
     {
-      fetch(envFile.serverURL+'/pressing/',
+      fetch('http://localhost:3001/pressing/',
       {
         method: 'GET',
         headers: {
@@ -51,7 +50,7 @@ const getYourPressings=(setPressings)=>{
   if(typeof window !== 'undefined')
   {
     
-      fetch(envFile.serverURL+'/pressing/'+localStorage.getItem('userId'),
+      fetch('http://localhost:3001/pressing/'+localStorage.getItem('userId'),
       {
         method: 'GET',
         headers: {
