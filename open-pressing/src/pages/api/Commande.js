@@ -1,6 +1,7 @@
+import envFile from "./envFile"
 const saveCommande=(commande,setResult)=>{
      if (commande != null) {
-        fetch("http://localhost:3001/order", {
+        fetch( envFile.serverURL+"/order", {
             method: 'POST',
             headers:
             {
