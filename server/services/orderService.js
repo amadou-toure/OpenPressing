@@ -9,6 +9,37 @@ const saveOrder = (req,res)=>{
     })
 }
 
+const getPressingOrder= (req,res)=>{
+    pool.query(queries.getPressingOrders,[req.params.id],(error,results)=>{
+        if (error){
+            console.log(error)
+        }else{
+            res.json(results.rows)
+        }
+    })
+}
+
+const getYourOrder= (req,res)=>{
+    pool.query(queries.getYourOrders,[req.params.id],(error,results)=>{
+        if (error){
+            console.log(error)
+        }else{
+            res.json(results.rows)
+        }
+    })
+}
+
+const setinfoDepot= (req,res)=>{
+    pool.query(queries.updateLieuDepot,[req.body.lieu_depot,req.body.date_depot,req.params.id],(error)=>{
+        if (error){
+            console.log(error)
+        }else{
+            res.status(204)
+            console.log("ok")
+        }
+    })
+}
+
 module.exports={
-    saveOrder
+    saveOrder,getPressingOrder,getYourOrder,setinfoDepot
 }

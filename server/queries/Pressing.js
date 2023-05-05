@@ -4,7 +4,7 @@ pressing.id_pressing AS id,
 pressing.localisation AS localisation,
 pressing.contact AS contact,
 pressing.note AS note,
-pressing."verifier?" AS actif,
+pressing."verifier" AS actif,
 enseigne.nom_enseigne AS enseigne,
 enseigne.logo As logo
 FROM pressing
