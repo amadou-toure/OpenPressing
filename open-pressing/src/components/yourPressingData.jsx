@@ -8,6 +8,7 @@ import {
   TableHead,
   TableRow,
   Chip,
+  Button,
 } from "@mui/material";
 import BaseCard from "./baseCard/BaseCard";
 
@@ -93,12 +94,17 @@ const yourPressingData = (pressing) => {
                 etat
               </Typography>
             </TableCell>
+            <TableCell align="right">
+              <Typography color="textSecondary" variant="h6">
+                action
+              </Typography>
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {pressing.pressing.map((pressing) => (
-            <TableRow key={pressing.id_pressing}>
-              <TableCell>
+               <TableRow  key={pressing.id_pressing}>
+              <TableCell >
                 <Typography
                   sx={{
                     fontSize: "15px",
@@ -152,7 +158,15 @@ const yourPressingData = (pressing) => {
                   label={pressing.verifier}
                 ></Chip>
               </TableCell>
+              <TableCell align="right">
+              <Box>
+                  <Button>modifier</Button>
+                  <Button>Supprimer</Button>
+                  </Box>
+                  </TableCell>
             </TableRow>
+            
+           
           ))}
         </TableBody>
       </Table>

@@ -48,6 +48,7 @@ export default function SignInSide() {
       {
         if (localStorage.getItem('token'))
         {
+          localStorage.setItem('role',"Client")
           router.push('./Client')
         }else{
           console.log('token non definis')
@@ -62,6 +63,7 @@ export default function SignInSide() {
       {
         if (localStorage.getItem('token'))
         {
+          localStorage.setItem('role',"Proprietaire")
           router.push('./admin')
         }
        
