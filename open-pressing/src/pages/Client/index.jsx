@@ -26,7 +26,8 @@ const Client = () => {
     const [filter, setFilter] = useState("")
     const getPressings = Pressing.getPressing
 
-    getPressing(setPressings)
+    getPressings(setPressings)
+    console.log(pressings)
     const handleResult = (result) => {
         setData(result)
 

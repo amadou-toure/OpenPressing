@@ -17,7 +17,6 @@ import { useEffect, useState } from "react"
     const handleResult = (result) =>
   {
     setPressingList(result)
-    console.log(pressingList)
   }
   if(typeof window !== 'undefined')
   {

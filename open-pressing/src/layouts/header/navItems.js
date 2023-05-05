@@ -2,16 +2,17 @@ import ListAltIcon from '@mui/icons-material/ListAlt';
 import HomeIcon from '@mui/icons-material/Home';
 import CallIcon from '@mui/icons-material/Call';
 import { Icon } from '@mui/material';
+const basePath="/Client"
 const navItems = [
     {
       title: "Acceuil",
       icon: <HomeIcon />,
-      href: "/Client",
+      href: basePath,
     },
     {
       title: "Commandes",
       icon: <ListAltIcon />,
-      href: "/admin/enseigneSave",
+      href: basePath+"/order",
     },
     {
       title: "contacts",
