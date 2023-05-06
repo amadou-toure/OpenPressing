@@ -9,5 +9,7 @@ route.get('/',pressingService.getPressings);
 route.get('/:id',auth,pressingService.getProprietairePressings);
 route.post('/',auth,pressingService.createPressing)
 route.post('/enseigne/',auth,pressingService.createEnseigne);
-route.get('/enseigne/:id',auth,pressingService.getEnseigne)
+route.get('/enseigne/:id',auth,pressingService.getEnseigne);
+route.post('/employee',pressingService.login);
+route.post('/employee/:id',auth,pressingService.getOneEmployee);
 module.exports = route

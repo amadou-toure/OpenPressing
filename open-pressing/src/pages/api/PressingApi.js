@@ -64,5 +64,29 @@ const getYourPressings=(setPressings)=>{
    
   } 
 }
+const getOneEmployee= async(setUser)=>{
+  const handleResult = (result) =>
+  {
+    setUser(result)
+  }
+  if(typeof window !== 'undefined')
+  {
+   
+      await fetch(envFile.serverURL+'/pressing/employee/'+localStorage.getItem('userId'),
+      {
+        method: 'POST',
+        headers: {
+            'Authorization':localStorage.getItem('token')
+        },
+    })
+    .then(response=> response ? response.json(): console.log('echec de chargement de employee'))
+    .then((result) => handleResult(result))
+    .catch(error=>console.log(error))
+   
+     
+
+   
+  } 
+}
 export default 
-{getPressing,savePressing,getYourPressings}
+{getPressing,savePressing,getYourPressings,getOneEmployee}

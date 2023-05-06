@@ -70,6 +70,19 @@ export default function SignInSide() {
        
       }
     
+    } else if (user==='Employee')
+    {
+      auth(envFile.serverURL+"/pressing/employee",logindata)
+      if(typeof window !== 'undefined')
+      {
+        if (localStorage.getItem('token')!="undefined")
+        {
+          localStorage.setItem('role',"employer")
+          router.push('./employee')
+        }
+       
+      }
+    
     }
     else{console.log('user does not exist')}
     
@@ -124,6 +137,7 @@ export default function SignInSide() {
                   }}
                 >
                   <FormControlLabel value="Client" control={<Radio />} label="Client" />
+                  <FormControlLabel value="Employee" control={<Radio />} label="Employe" />
                   <FormControlLabel value="Owner" control={<Radio />} label="Proprietaire de pressing" />
                 </RadioGroup>
               </Grid>

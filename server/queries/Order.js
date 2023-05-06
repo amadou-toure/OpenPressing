@@ -1,10 +1,10 @@
 saveOrder='INSERT INTO commande ("id_client","id_pressing","date_recuperation","lieu_recuperation") values($1,$2,$3,$4);'
 getPressingOrders=`SELECT
 commande.*,
-client.nom_client,
-client.prenom_client,
-client.numero_telephone_client,
-client.adresse_email_client,
+client.nom_client as nom_client,
+client.prenom_client as prenom_client,
+client.numero_telephone_client as contact_client,
+client.adresse_email_client as email_client,
 pressing.localisation AS locaisation_pressing,
 pressing.contact AS contact_pressing,
 pressing.note AS note
@@ -30,5 +30,14 @@ JOIN pressing on commande.id_pressing=pressing.id_pressing join enseigne on pres
 updateLieuDepot=`UPDATE commande
 SET lieu_depot = $1, date_livraison_souhaiter=$2
 WHERE id_commande=$3;`
+updateStatus=`UPDATE commande
+SET status = $1
+WHERE id_commande=$2;`
+updateValider=`UPDATE commande
+SET commande_validee_ = $1, id_employee =$2
+WHERE id_commande=$3;`
+setcommande=`UPDATE commande
+SET nombre_linge = $1, detail= $2
+WHERE id_commande=$3;`
 
-module.exports={saveOrder,getPressingOrders,getYourOrders,updateLieuDepot}
+module.exports={saveOrder,getPressingOrders,getYourOrders,updateLieuDepot,updateStatus,updateValider,setcommande}
