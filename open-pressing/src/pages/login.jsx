@@ -10,10 +10,18 @@ import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Copyright from '@/components/Copyright';
+import { redirect } from 'next/navigation'; 
+import { useRouter } from 'next/router';
+import RadioGroup from '@mui/material/RadioGroup';
+import {Radio} from '@mui/material';
+import Auth from './api/Authentification';
+import envFile from './api/envFile';
+
+import { useState } from 'react';
+import auth from './api/Authentification';
 
 
 const theme = createTheme();
@@ -21,21 +29,65 @@ const theme = createTheme();
 
 
 export default function SignInSide() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const router = useRouter();
+  const [user,setUser] = useState('Client')
+
+  const handleUserStatus = (event) => {
+    setUser(event.target.value);
+  };
+  console.log(user)
+  const CheckLogin = (event)=>{
+     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const logindata=({
-      email: data.get('email'),
-      password: data.get('password'),
+      adresse_email: data.get('email'),
+      mot_de_passe: data.get('password'),
     });
-  };
-  const CheckLogin = ()=>{
-
-    useEffect( ()=>{
-        fetch("http://localhost:3001")
-        .then((logindata)=>data.json())
-        .then((data)=>setTableData(data))
-    },[])
+    if (user==='Client'){
+     auth(envFile.serverURL+"/clients/login",logindata)
+     if(typeof window !== 'undefined')
+      {
+        if (localStorage.getItem('token'))
+        {
+          localStorage.setItem('role',"Client")
+          router.push('./Client')
+        }else{
+          console.log('token non definis')
+        }
+      }
+      
+    }
+    else if (user==='Owner')
+    {
+      auth(envFile.serverURL+"/owners/login",logindata)
+      if(typeof window !== 'undefined')
+      {
+        if (localStorage.getItem('token'))
+        {
+          localStorage.setItem('role',"Proprietaire")
+          router.push('./admin')
+        }
+       
+      }
+    
+    } else if (user==='Employee')
+    {
+      auth(envFile.serverURL+"/pressing/employee",logindata)
+      if(typeof window !== 'undefined')
+      {
+        if (localStorage.getItem('token')!="undefined")
+        {
+          localStorage.setItem('role',"employer")
+          router.push('./employee')
+        }
+       
+      }
+    
+    }
+    else{console.log('user does not exist')}
+    
+      
+     
   }
   return (
     <ThemeProvider theme={theme}>
@@ -56,6 +108,7 @@ export default function SignInSide() {
           }}
         />
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+          
           <Box
             sx={{
               my: 8,
@@ -66,12 +119,29 @@ export default function SignInSide() {
             }}
           >
             <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-              <LockOutlinedIcon />
+              <img  src="https://upcdn.io/W142hJk/image/demo/4mZFNstdCR.png?w=600&h=600&fit=max&q=70" />
             </Avatar>
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+            <Grid item xs={12}>
+                <Typography component='body2' variant='h6'> Vous etes :</Typography>
+                <RadioGroup
+                  aria-labelledby="demo-controlled-radio-buttons-group"
+                  name="controlled-radio-buttons-group"
+                  value={user}
+                  onChange={handleUserStatus}
+                  sx={{
+                    display:'flex',
+                    flexDirection: 'row',
+                  }}
+                >
+                  <FormControlLabel value="Client" control={<Radio />} label="Client" />
+                  <FormControlLabel value="Employee" control={<Radio />} label="Employe" />
+                  <FormControlLabel value="Owner" control={<Radio />} label="Proprietaire de pressing" />
+                </RadioGroup>
+              </Grid>
+            <Box component="form"  onSubmit={CheckLogin} sx={{ mt: 1 }}>
               <TextField
                 margin="normal"
                 required

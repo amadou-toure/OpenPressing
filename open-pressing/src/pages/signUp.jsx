@@ -13,24 +13,63 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Copyright from '@/components/Copyright';
+import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
+import { useState } from 'react';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import  ImageUploader from '../components/ImageUploader'
+import RadioGroup from '@mui/material/RadioGroup';
+import {Radio} from '@mui/material'
+import { router } from 'next/router';
 
 
-
-const theme = createTheme();
 
 export default function SignUp() {
+  const [user,setUser] = useState('Client')
+  const [birthdate, setbirthdate] = useState(null)
+  const [pp,setPp] = useState('nothing yet')
+  const handleUserStatus = (event) => {
+    setUser(event.target.value);
+  };
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    const newUser=({
+      nom:data.get('lastName'),
+      prenom:data.get('firstName'),
+      date_de_naissance:birthdate,
+      numero_telephone:data.get('phoneNumber'),
+      adresse_email:data.get('email'),
+      mot_de_passe:data.get('password'),
+      photo_profil:pp,
+    })
+    console.log(newUser);
+    user === 'Client' ?
+      fetch("http://localhost:3001/clients/",{
+        method:'POST',
+        headers:{
+          'content-Type':'application/json'
+        },
+        body:JSON.stringify(newUser)
+      })
+      // .then(res=> res.status===200? console.log(res.json()) : console.log('echec de connexion'))
+        .then(router.push('/Client'))
+        .catch(error=>console.log(error))
+    :
+    fetch("http://localhost:3001/owners/",{
+        method:'POST',
+        headers:{
+          'content-Type':'application/json'
+        },
+        body:JSON.stringify(newUser)
+      })
+      // .then(res=> res.status===200? console.log(res.json()) : console.log('echec de connexion'))
+        .then(data =>Router.push('/admin'))
+        .catch(error=>console.log(error))
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="xs" sx={{bgcolor:'white'}}>
+        {console.log(user)}
         <CssBaseline />
         <Box
           sx={{
@@ -48,6 +87,23 @@ export default function SignUp() {
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <Typography component='body2' variant='h6'> Vous etes :</Typography>
+                <RadioGroup
+                  aria-labelledby="demo-controlled-radio-buttons-group"
+                  name="controlled-radio-buttons-group"
+                  value={user}
+                  onChange={handleUserStatus}
+                  sx={{
+                    display:'flex',
+                    flexDirection: 'column',
+                    marginLeft: '5%'
+                  }}
+                >
+                  <FormControlLabel value="Client" control={<Radio />} label="Client" />
+                  <FormControlLabel value="Owner" control={<Radio />} label="Proprietaire de pressing" />
+                </RadioGroup>
+              </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="given-name"
@@ -55,7 +111,7 @@ export default function SignUp() {
                   required
                   fullWidth
                   id="firstName"
-                  label="First Name"
+                  label="Prenom"
                   autoFocus
                 />
               </Grid>
@@ -64,11 +120,32 @@ export default function SignUp() {
                   required
                   fullWidth
                   id="lastName"
-                  label="Last Name"
+                  label="Nom"
                   name="lastName"
                   autoComplete="family-name"
                 />
               </Grid>
+              <Grid item xs={12} sm={6}>
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <DatePicker
+                    required
+                    label="Date de naissance" 
+                    id="birthdate"
+                    name="birthdate" 
+                    value={birthdate}
+                    onChange={(newValue) => setbirthdate(newValue)}
+                  /> 
+                </LocalizationProvider>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                    required
+                    fullWidth
+                    id="phoneNumber"
+                    label="Numero de telephone"
+                    name="phoneNumber"
+                  />
+                </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
@@ -84,17 +161,14 @@ export default function SignUp() {
                   required
                   fullWidth
                   name="password"
-                  label="Password"
+                  label="Mot de passe"
                   type="password"
                   id="password"
                   autoComplete="new-password"
                 />
               </Grid>
               <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
-                />
+                <ImageUploader photo={pp} setPhoto={setPp}/>
               </Grid>
             </Grid>
             <Button
@@ -103,19 +177,17 @@ export default function SignUp() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign Up
+              Enregistrer
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="/login" variant="body2">
-                  Already have an account? Sign in
+                  vous avez deja un compte ? connectez vous
                 </Link>
               </Grid>
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
       </Container>
-    </ThemeProvider>
   );
 }

@@ -1,9 +1,9 @@
 {
-   "nom":"choufack",
-   "prenom":"aminata",
-   "date_de_naissance":"19/11/2004",
-   "numero_telephone":"699615365",
-   "adresse_email":"insert.test@home.cool",
-   "mot_de_passe":"undeuxiememotdepasse",
+   "nom":"lil",
+   "prenom":"laure",
+   "date_de_naissance":"10/01/2002",
+   "numero_telephone":"69958525",
+   "adresse_email":"hash.lillaure@home.cool",
+   "mot_de_passe":"testdebcrypt",
    "photo_profil":"base64aajouter"
 }
